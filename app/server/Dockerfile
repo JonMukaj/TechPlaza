@@ -14,8 +14,8 @@ RUN apk update && apk add nodejs && npm i -g nodemon
 # Copy the rest of the app code to the container
 COPY . .
 
-# Expose port 3000 for the React app
+# Expose port 5000 for the Express app
 EXPOSE 5000
 
 # Start the app
-CMD ["nodemon", "./server.js", "localhost 8080"]
+CMD ["nodemon", "./server.js", "localhost 5000"]

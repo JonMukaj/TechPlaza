@@ -37,7 +37,6 @@ services:
     container_name: frontend
     volumes:
       - ./client:/client
-      - ./client/node_modules
     ports:
       - 3000:3000
     environment:
@@ -52,7 +51,6 @@ services:
     container_name: backend
     volumes:
       - ./server:/server
-      - ./server/node_modules
     ports:
       - 5000:5000
     environment:
