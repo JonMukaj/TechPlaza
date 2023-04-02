@@ -5,8 +5,8 @@ on:
     tags: ["v*.*.*"]
 
 env:
-  IMAGE_NAME_FRONT: frontend
   IMAGE_NAME_BACK: backend
+  IMAGE_NAME_FRONT: frontend
 
 jobs:
   backend_build:
@@ -27,10 +27,13 @@ jobs:
       - name: Build & Push
         uses: docker/build-push-action@v2
         with:
+          context: ./app/server
+          file: ./Dockerfile
           push: true
           build-args: |
             version=${{ steps.tag.outputs.tag }}
           tags: ${{ secrets.ACR_ENDPOINT }}/${{ env.IMAGE_NAME_BACK }}:${{ steps.tag.outputs.tag }}
+          
   frontend_build:
     name: Build and push container image for front
     runs-on: ubuntu-latest
@@ -49,6 +52,8 @@ jobs:
       - name: Build & Push
         uses: docker/build-push-action@v2
         with:
+          context: ./app/client
+          file: ./Dockerfile
           push: true
           build-args: |
             version=${{ steps.tag.outputs.tag }}
