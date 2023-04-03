@@ -33,7 +33,9 @@ services:
         max_attempts: 3
 
   react:
-    build: ./client
+    build: 
+      context: ./client
+      dockerfile: Dockerfile.dev
     container_name: frontend
     volumes:
       - ./client:/client
@@ -48,7 +50,9 @@ services:
         max_attempts: 3
 
   express:
-    build: ./server
+    build:
+        context: ./server
+        dockerfile: Dockerfile.dev
     container_name: backend
     volumes:
       - ./server:/server
