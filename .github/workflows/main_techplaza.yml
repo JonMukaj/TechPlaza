@@ -3,7 +3,11 @@ name: Docker
 on:
   push:
     tags: ["v*.*.*"]
-
+    
+permissions:
+  id-token: write
+  contents: read
+  
 env:
   IMAGE_NAME_APP: techplaza
   RG_TEST: techplaza-test-rg
