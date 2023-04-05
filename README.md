@@ -17,22 +17,6 @@ After installing the dependency in app/client or app/server, run docker compose
 using the --build flag in order to re-spin the containers.
 
 `docker-compose --env-file .env up -d --build`
-Connect to database
--------------------
-
-There are two options to connect to the database:
-
-### Option 1: Through Postgres CLI
-
-1.  Execute the following command: `docker-compose exec my_db /bin/bash`.
-2.  Run the command `psql --host=<db_host> --username=<db_user> --dbname=<db_name>` (from `.env`).
-3.  Enter the password for the prompt (from `.env`).
-
-### Option 2: Through PgAdmin (GUI)
-
-1.  Open `localhost:8080` in your web browser.
-2.  Login with your email and password (from `.env`).
-3.  Create/connect to a server using the host, user, and password (from `.env`).
 
 Test route
 ----------
