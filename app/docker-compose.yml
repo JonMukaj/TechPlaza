@@ -17,22 +17,6 @@ services:
   #       condition: on-failure
   #       max_attempts: 3
       
-  # pgadmin:
-  #   image: dpage/pgadmin4:3.5
-  #   container_name: pgadmin
-  #   volumes:
-  #     - ./server/servers.json:/pgadmin4/servers.json
-  #   ports:
-  #     - 8080:80
-  #   environment:
-  #     - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
-  #     - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
-  #     - PGADMIN_CONFIG_SERVER_MODE='False'
-  #   deploy:
-  #     restart_policy:
-  #       condition: on-failure
-  #       max_attempts: 3
-
   react:
     build: 
       context: ./client
@@ -62,8 +46,8 @@ services:
       - 5000:5000
     environment:
       - NODE_ENV=development
-    depends_on:
-      - postgres
+    # depends_on:
+    #   - postgres
     deploy:
       restart_policy:
         condition: on-failure
