@@ -3,7 +3,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 const cors = require("cors");
 
-const whitelist = ["http://localhost:3000", "http://localhost:5000"];
+const whitelist = ["http://localhost:3000", "https://techplaza-test.azurewebsites.net"];
 app.use(express.json());
 app.use(cors(whitelist));
 
