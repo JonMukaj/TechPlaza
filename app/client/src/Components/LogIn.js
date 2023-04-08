@@ -35,6 +35,9 @@ const Login = () => {
     axios.post("http://localhost:5000/login", data).then((res) => {
       console.log(res);
     });
+    axios.post("https://techplaza-test.azurewebsites.net/login", data).then((res) => {
+      console.log(res);
+    });
   };
 
   return (
