@@ -15,6 +15,10 @@ app.get("/backend", (req, res) => {
   res.send({ express: "TOP G!" });
 });
 
+app.get("/test", (req, res) => {
+  res.send({ express: "Test route" });
+});
+
 //  Create a login route
 app.post("/login", (req, res) => {
   console.log(req.body);
