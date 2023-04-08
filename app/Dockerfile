@@ -11,5 +11,5 @@ RUN cd server && npm install
 COPY server/server.js ./server/
 
 EXPOSE 5000
-
+# kdkfsdkkf
 CMD ["node", "./server/server.js"]
