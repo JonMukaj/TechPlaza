@@ -6,6 +6,7 @@ const cors = require("cors");
 const whitelist = ["http://localhost:3000", "http://localhost:5000"];
 app.use(express.json());
 app.use(cors(whitelist));
+
 // This displays message that the server running and listening to specified port
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
