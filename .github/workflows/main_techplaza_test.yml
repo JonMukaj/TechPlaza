@@ -11,10 +11,10 @@ permissions:
       contents: read
   
 env:
-  IMAGE_NAME_APP: techplaza
   RG_TEST: techplaza-test-rg
   RG_PROD: techplaza-prod-rg
   APP_NAME_TEST: techplaza-test
+  IMAGE_NAME_TEST: techplaza-test
 
 
 jobs:
@@ -44,7 +44,7 @@ jobs:
           push: true
           build-args: |
             version=${{ steps.tag.outputs.tag }}
-          tags: ${{ secrets.ACR_ENDPOINT }}/${{ env.IMAGE_NAME_APP }}:${{ steps.vars.outputs.sha_short }}
+          tags: ${{ secrets.ACR_ENDPOINT }}/${{ env.IMAGE_NAME_TEST }}:${{ steps.vars.outputs.sha_short }}
       - name: 'Az CLI login'
         uses: azure/login@v1
         with:
@@ -53,4 +53,4 @@ jobs:
             subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
       - name: Update tag of service
         run: |
-          az webapp config container set --name ${{ env.APP_NAME_TEST }} --resource-group ${{ env.RG_TEST }} --docker-custom-image-name ${{ secrets.ACR_ENDPOINT }}/${{ env.IMAGE_NAME }}:${{ steps.vars.outputs.sha_short }} --docker-registry-server-url ${{ secrets.ACR_ENDPOINT }} --docker-registry-server-user ${{ secrets.ACR_USERNAME }} --docker-registry-server-password ${{ secrets.ACR_PASSWORD }}
+          az webapp config container set --name ${{ env.APP_NAME_TEST }} --resource-group ${{ env.RG_TEST }} --docker-custom-image-name ${{ secrets.ACR_ENDPOINT }}/${{ env.IMAGE_NAME_TEST }}:${{ steps.vars.outputs.sha_short }} --docker-registry-server-url ${{ secrets.ACR_ENDPOINT }} --docker-registry-server-user ${{ secrets.ACR_USERNAME }} --docker-registry-server-password ${{ secrets.ACR_PASSWORD }}
