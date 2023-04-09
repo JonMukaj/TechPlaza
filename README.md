@@ -9,23 +9,23 @@ Set up environment
 To set up the environment, follow these steps:
 
 1.  Create a `.env` file inside the `/app` directory which will include the configuration variables.
-2.  Navigate to the `/app` directory and run the following command: `docker-compose --env-file .env up -d`.
+2.  Navigate to the `/app` directory and run the following command: `docker-compose up -d`.
 
 Install dependencies
 ------------------
 After installing the dependency in app/client or app/server, run docker compose 
 using the --build flag in order to re-spin the containers.
 
-`docker-compose --env-file .env up -d --build`
+`docker-compose up -d --build`
 
-Test route
+Test app
 ----------
 
-To test a route, run the following command: `curl localhost:5000/<name_of_route>`. For example:
+To test app, run the following command: `curl localhost:5000/<route>`. For example:
 
 `curl localhost:5000/backend`
 
 Access app
 ----------
 
-To access the app, open `localhost:3000` in your web browser.
+To access the app, open `localhost:5000` in your web browser.

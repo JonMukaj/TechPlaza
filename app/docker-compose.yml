@@ -1,5 +1,18 @@
 version: "3.8"
 services:
+  app:
+    build: 
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: techplaza
+    ports:
+      - 5000:5000
+    environment:
+      - NODE_ENV=development
+    deploy:
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
   # postgres:
   #   image: postgres:14.7-alpine
   #   container_name: postgres-db
@@ -17,38 +30,38 @@ services:
   #       condition: on-failure
   #       max_attempts: 3
       
-  react:
-    build: 
-      context: ./client
-      dockerfile: Dockerfile.dev
-    container_name: frontend
-    volumes:
-      - ./client:/client
-      - /client/node_modules
-    ports:
-      - 3000:3000
-    environment:
-      - NODE_ENV=development
-    deploy:
-      restart_policy:
-        condition: on-failure
-        max_attempts: 3
+  # react:
+  #   build: 
+  #     context: ./client
+  #     dockerfile: Dockerfile.dev
+  #   container_name: frontend
+  #   volumes:
+  #     - ./client:/client
+  #     - /client/node_modules
+  #   ports:
+  #     - 3000:3000
+  #   environment:
+  #     - NODE_ENV=development
+  #   deploy:
+  #     restart_policy:
+  #       condition: on-failure
+  #       max_attempts: 3
 
-  express:
-    build:
-        context: ./server
-        dockerfile: Dockerfile.dev
-    container_name: backend
-    volumes:
-      - ./server:/server
-      - /server/node_modules
-    ports:
-      - 5000:5000
-    environment:
-      - NODE_ENV=development
-    # depends_on:
-    #   - postgres
-    deploy:
-      restart_policy:
-        condition: on-failure
-        max_attempts: 3
+  # express:
+  #   build:
+  #       context: ./server
+  #       dockerfile: Dockerfile.dev
+  #   container_name: backend
+  #   volumes:
+  #     - ./server:/server
+  #     - /server/node_modules
+  #   ports:
+  #     - 5000:5000
+  #   environment:
+  #     - NODE_ENV=development
+  #   # depends_on:
+  #   #   - postgres
+  #   deploy:
+  #     restart_policy:
+  #       condition: on-failure
+  #       max_attempts: 3

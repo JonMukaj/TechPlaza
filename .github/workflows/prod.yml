@@ -1,0 +1,42 @@
+name: Docker
+
+on:
+  push:
+    tags: ["v*.*.*"]
+    
+# permissions:
+#       id-token: write
+#       contents: read
+  
+env:
+  # RG_TEST: techplaza-test-rg
+  # RG_PROD: techplaza-prod-rg
+  # APP_NAME_TEST: techplaza-test
+  IMAGE_NAME_TEST: techplaza-prod
+
+
+jobs:
+  build-test:
+    name: Build and push container image for app in test environment
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      # - name: Get tag
+      #   id: tag
+      #   uses: dawidd6/action-get-tag@v1
+      - name: Log into registry
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ secrets.ACR_ENDPOINT }}
+          username: ${{ secrets.ACR_USERNAME }}
+          password: ${{ secrets.ACR_PASSWORD }}
+      - name: Build & Push
+        uses: docker/build-push-action@v2
+        with:
+          context: ./app
+          file: ./app/Dockerfile
+          push: true
+          build-args: |
+            version=${{ steps.tag.outputs.tag }}
+          tags: ${{ secrets.ACR_ENDPOINT }}/${{ env.IMAGE_NAME_TEST }}:${{ steps.meta.outputs.tags }}

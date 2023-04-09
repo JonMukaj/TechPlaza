@@ -29,15 +29,18 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    
     const data = { email, password };
+
     console.log(data);
-    axios.post("http://localhost:5000/login", data).then((res) => {
-      console.log(res);
-    });
-    axios.post("https://techplaza-test.azurewebsites.net/login", data).then((res) => {
-      console.log(res);
-    });
+    
+    axios.post("http://localhost:5000/login", data)
+    .then((res) => {
+      console.log(res.data);
+    })
+    .catch((error) => {
+      console.log(error.response.data);
+    })
   };
 
   return (
