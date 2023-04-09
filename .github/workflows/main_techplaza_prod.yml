@@ -1,4 +1,4 @@
-name: Docker
+name: Prod
 
 on:
   push:
@@ -12,12 +12,12 @@ env:
   # RG_TEST: techplaza-test-rg
   # RG_PROD: techplaza-prod-rg
   # APP_NAME_TEST: techplaza-test
-  IMAGE_NAME_TEST: techplaza-prod
+  IMAGE_NAME_PROD: techplaza-prod
 
 
 jobs:
   build-test:
-    name: Build and push container image for app in test environment
+    name: Build and push container image for app in prod environment
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -39,4 +39,4 @@ jobs:
           push: true
           # build-args: |
           #   version=${{ steps.tag.outputs.tag }}
-          tags: ${{ secrets.ACR_ENDPOINT }}/${{ env.IMAGE_NAME_TEST }}:${{ steps.meta.outputs.tags }}
+          tags: ${{ secrets.ACR_ENDPOINT }}/${{ env.IMAGE_NAME_PROD }}:${{ steps.meta.outputs.tags }}
