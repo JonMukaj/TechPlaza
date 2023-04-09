@@ -37,6 +37,6 @@ jobs:
           context: ./app
           file: ./app/Dockerfile
           push: true
-          build-args: |
-            version=${{ steps.tag.outputs.tag }}
+          # build-args: |
+          #   version=${{ steps.tag.outputs.tag }}
           tags: ${{ secrets.ACR_ENDPOINT }}/${{ env.IMAGE_NAME_TEST }}:${{ steps.meta.outputs.tags }}
