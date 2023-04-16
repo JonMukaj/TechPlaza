@@ -26,12 +26,12 @@ class UserController {
   });
 
   updateUser = asyncHandler(async (req, res) => {
-    const user = await this.serviceManager.userService.updateUser(req.params.id, req.body);
+    const user = await this.serviceManager.userService.updateUserAsync(req.params.id, req.body);
     res.json(user);
   });
 
   deleteUser = asyncHandler(async (req, res) => {
-    await this.serviceManager.userService.deleteUser(req.params.id);
+    await this.serviceManager.userService.deleteUserAsync(req.params.id);
     res.sendStatus(204);
   });
 

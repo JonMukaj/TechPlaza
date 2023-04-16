@@ -4,7 +4,7 @@ const helmet = require('helmet');
 const cors = require('cors');
 const  {NotFound, BadRequest, errorHandler}  = require('../server/src/errors/errorHandler');
 const userRoutes = require('../server/src/routes/userRoutes');
-
+const categoriesRoutes = require('../server/src/routes/categoriesRoutes');
 
 
 const app = express();
@@ -35,6 +35,8 @@ app.get("/backend", (req, res) => {
 });
 
 app.use('/users', userRoutes);
+app.use('/categories',categoriesRoutes);
+
 app.use(errorHandler);
 
 //  Create a login route

@@ -1,10 +1,12 @@
 const  UserService  = require('../services/UserService');
 //const { ProductService } = require('../services/ProductService');
+const CategoriesService=require("../services/CategoriesService");
 
 class ServiceManager {
   constructor() {
     (async () => {
       this.userService = new UserService();
+      this.categoriesService=new CategoriesService();
      // this.productRepository = await new ProductRepository();
     })()
   }
@@ -13,8 +15,8 @@ class ServiceManager {
     return this.userService;
   }
 
-  productService() {
-   // return this.productService;
+  categoriesService() {
+    return this.categoriesService;
   }
 
 

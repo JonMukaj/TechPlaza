@@ -1,11 +1,12 @@
 const UserRepository = require('../repositories/UserRepository');
 //const ProductRepository = require('../repositories/ProductRepository');
+const CategoriesRepository=require("../repositories/CategoriesRepository");
 
 class RepositoryManager {
   constructor() {
     (async () => {
       this.userRepository = new UserRepository();
-     // this.productRepository = await new ProductRepository();
+      this.categoriesRepository =  new CategoriesRepository();
     })()
   }
 
@@ -13,8 +14,8 @@ class RepositoryManager {
     return this.userRepository;
   }
 
-  productRepository() {
-   // return this.productRepository;
+  categoriesRepository() {
+    return this.categoriesRepository;
   }
 
   // add other methods for accessing other repositories here
