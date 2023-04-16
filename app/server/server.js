@@ -2,7 +2,7 @@ const express = require("express");
 const morgan = require('morgan');
 const helmet = require('helmet');
 const cors = require('cors');
-const  errorHandler  = require('./errorHandler');
+const  {NotFound, BadRequest, errorHandler}  = require('./errorHandler');
 //const userRoutes = require('./routes/userRoutes');
 const app = express();
 const port = process.env.PORT || 5000;
@@ -28,7 +28,7 @@ app.get('/', (req, res) => {
 });
 
 app.get("/backend", (req, res) => {
-  res.send({ express: "TOP G!iiisa" });
+  res.send({ express: "TOP G!ssssss" });
 });
 
 
