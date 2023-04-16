@@ -2,8 +2,11 @@ const express = require("express");
 const morgan = require('morgan');
 const helmet = require('helmet');
 const cors = require('cors');
-const  {NotFound, BadRequest, errorHandler}  = require('./errorHandler');
-//const userRoutes = require('./routes/userRoutes');
+const  {NotFound, BadRequest, errorHandler}  = require('../server/src/errors/errorHandler');
+const userRoutes = require('../server/src/routes/userRoutes');
+
+
+
 const app = express();
 const port = process.env.PORT || 5000;
 const path = require("path");
@@ -28,12 +31,11 @@ app.get('/', (req, res) => {
 });
 
 app.get("/backend", (req, res) => {
-  res.send({ express: "TOP G!ssssss" });
+  res.send({ express: "TOP G!i" });
 });
 
-
-//app.use('/users', userRoutes);
-//app.use(errorHandler);
+app.use('/users', userRoutes);
+app.use(errorHandler);
 
 //  Create a login route
 app.post("/login", (req, res) => {

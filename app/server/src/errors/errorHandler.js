@@ -1,7 +1,7 @@
 class NotFound extends Error {
   constructor(message) {
     super(message);
-    this.name = "NotFound";
+    this.name = 'NotFound';
     this.statusCode = 404;
   }
 }
@@ -9,7 +9,7 @@ class NotFound extends Error {
 class BadRequest extends Error {
   constructor(message) {
     super(message);
-    this.name = "BadRequest";
+    this.name = 'BadRequest';
     this.statusCode = 400;
   }
 }
@@ -21,7 +21,7 @@ const errorHandler = (err, req, res, next) => {
     return res.status(err.statusCode).json({ message: err.message });
   }
 
-  res.status(500).json({ message: "Internal Server Error" });
+  res.status(500).json({ message: 'Internal Server Error' });
 };
 
 module.exports = { NotFound, BadRequest, errorHandler };
