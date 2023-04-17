@@ -1,5 +1,5 @@
 const { Op } = require('sequelize');
-const Product = require('../models/Product');
+const Product = require('../models/entities/Product');
 
 class ProductRepository {
 

@@ -1,5 +1,5 @@
 const { Op } = require('sequelize');
-const User = require('../models/Users');
+const User = require('../models/entities/Users');
 
 class UserRepository {
 

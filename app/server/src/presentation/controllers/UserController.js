@@ -1,7 +1,7 @@
-const UserService = require('../services/UserService');
+const UserService = require('../../services/UserService');
 const asyncHandler = require('express-async-handler');
-const { NotFound } = require('../errors/errorHandler');
-const ServiceManager=require("../services/ServiceManager");
+const { NotFound } = require('../../errors/errorHandler');
+const ServiceManager=require("../../services/ServiceManager");
 
 class UserController {
   constructor() {

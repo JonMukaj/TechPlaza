@@ -1,6 +1,7 @@
 const asyncHandler = require('express-async-handler');
-const { NotFound } = require('../errors/errorHandler');
-const ServiceManager=require("../services/ServiceManager");
+const {BadRequest, NotFound } = require('../../errors/errorHandler');
+const ServiceManager=require("../../services/ServiceManager");
+const validator=require("../validation/categoryValidation");
 
 class CategoriesController {
   constructor() {
@@ -8,8 +9,12 @@ class CategoriesController {
   }
 
   createCategory = asyncHandler(async (req, res) => {
-    const user = await this.serviceManager.categoriesService.createCategoryAsync(req.body);
-    res.json(user);
+    const { error, value } = validator.validate(req.body);
+    if (error) {
+      throw new BadRequest(error.message);
+    }
+    const category = await this.serviceManager.categoriesService.createCategoryAsync(value);
+    res.json(category);
   });
 
   getCategoryById = asyncHandler(async (req, res) => {

@@ -18,7 +18,7 @@ const errorHandler = (err, req, res, next) => {
   console.error(err.stack);
 
   if (err instanceof NotFound || err instanceof BadRequest) {
-    return res.status(err.statusCode).json({ message: err.message });
+    return res.status(err.statusCode).json({ message: err.message ,statusCode: err.statusCode});
   }
 
   res.status(500).json({ message: 'Internal Server Error' });

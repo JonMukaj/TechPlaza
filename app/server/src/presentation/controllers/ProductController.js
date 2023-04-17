@@ -1,6 +1,8 @@
 const asyncHandler = require('express-async-handler');
-const { NotFound } = require('../errors/errorHandler');
-const ServiceManager=require("../services/ServiceManager");
+const {BadRequest, NotFound } = require('../../errors/errorHandler');
+const ServiceManager=require("../../services/ServiceManager");
+const validate=require("../validation/productValidation");
+
 
 class ProductController {
   constructor() {
@@ -8,7 +10,12 @@ class ProductController {
   }
 
   createProduct = asyncHandler(async (req, res) => {
-    const prod = await this.serviceManager.productService.createProductAsync(req.body);
+    const { error, value } = validate.validate(req.body);
+    if (error) {
+      throw new BadRequest(error.message);
+    }
+
+    const prod = await this.serviceManager.productService.createProductAsync(value);
     res.json(prod);
   });
 
