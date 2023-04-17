@@ -1,4 +1,3 @@
-const bcrypt = require('bcryptjs');
 const { BadRequest, NotFound } = require("../errors/errorHandler");
 const RepositoryManager=require("../repositories/RepositoryManager");
 const { log } = require('console');
@@ -10,9 +9,6 @@ class CategoriesService {
   }
 
   async createCategoryAsync(category) {
-    const userToCreate = {
-      ...category
-    };
     return await this.repositoryManager.categoriesRepository.CreateCategory(category);
   }
 

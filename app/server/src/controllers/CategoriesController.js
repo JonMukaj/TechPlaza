@@ -32,6 +32,12 @@ class CategoriesController {
     const category = await this.serviceManager.categoriesService.getCategoriesAsync();
     res.json(category);
   });
+
+  getProductsByCategoryId = asyncHandler(async (req, res) => {
+    const { categoryId } = req.params;
+    const prods = await this.serviceManager.productService.getProductsByCategoryIdAsync(categoryId);
+    res.json(prods);
+  });
 }
 
 module.exports = CategoriesController;

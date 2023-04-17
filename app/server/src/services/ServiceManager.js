@@ -1,5 +1,5 @@
 const  UserService  = require('../services/UserService');
-//const { ProductService } = require('../services/ProductService');
+const  ProductService = require('../services/ProductService');
 const CategoriesService=require("../services/CategoriesService");
 
 class ServiceManager {
@@ -7,7 +7,7 @@ class ServiceManager {
     (async () => {
       this.userService = new UserService();
       this.categoriesService=new CategoriesService();
-     // this.productRepository = await new ProductRepository();
+      this.productService=new ProductService();
     })()
   }
 
@@ -17,6 +17,9 @@ class ServiceManager {
 
   categoriesService() {
     return this.categoriesService;
+  }
+  productService(){
+    return this.productService;
   }
 
 

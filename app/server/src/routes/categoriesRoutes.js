@@ -9,5 +9,6 @@ router.get('/:id', categoriesController.getCategoryById.bind(categoriesControlle
 router.put('/:id', categoriesController.updateCategory.bind(categoriesController));
 router.delete('/:id', categoriesController.deleteCategory.bind(categoriesController));
 router.get('/', categoriesController.getCategories.bind(categoriesController));
+router.get('/:categoryId/products', categoriesController.getProductsByCategoryId.bind(categoriesController));
 
 module.exports = router;
