@@ -55,7 +55,7 @@ const products = [
 
 const ProductList = () => {
   const [inStockOnly, setInStockOnly] = useState(false);
-  const [priceRange, setPriceRange] = useState([0, 1000]);
+  const [priceRange, setPriceRange] = useState([0, 5000]);
   const [sortOrder, setSortOrder] = useState("");
 
   const handleInStockChange = (event) => {
@@ -111,8 +111,8 @@ const ProductList = () => {
         onChange={handlePriceRangeChange}
         valueLabelDisplay="auto"
         min={0}
-        max={1000}
-        step={10}
+        max={5000}
+        step={100}
       />
       <FormControl sx={{ minWidth: 120 }}>
         <Select
