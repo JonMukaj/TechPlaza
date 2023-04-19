@@ -1,8 +1,8 @@
 const UserService = require('../../services/UserService');
 const asyncHandler = require('express-async-handler');
-const { NotFound } = require('../../errors/errorHandler');
+const { NotFound, BadRequest } = require('../../errors/errorHandler');
 const ServiceManager=require("../../services/ServiceManager");
-
+const validator=require("../validation/userValidation");
 class UserController {
   constructor() {
    // this.userService = new UserService();
@@ -10,7 +10,11 @@ class UserController {
   }
 
   createUser = asyncHandler(async (req, res) => {
-    const user = await this.serviceManager.userService.createUserAsync(req.body);
+    const {error,value}=validator.validate(req.body);
+    if(error)
+    throw new BadRequest(error.message);
+
+    const user = await this.serviceManager.userService.createUserAsync(value);
     res.json(user);
   });
 

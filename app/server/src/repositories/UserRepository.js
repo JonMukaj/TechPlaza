@@ -28,13 +28,17 @@ class UserRepository {
       }
     });
   }
+
+  
   async UpdateUser(id, user) {
     const existingUser = await User.findByPk(id);
     if (!existingUser) {
       return null;
     }
-    return await existingUser.update(user);
+    const updatedUser = await existingUser.update(user);
+    return updatedUser;
   }
+
 
   async DeleteUser(id) {
     return await User.destroy({

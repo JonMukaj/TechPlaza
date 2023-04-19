@@ -41,7 +41,7 @@ const User = sequelize.define('Users', {
     allowNull: false,
     unique: true
   },
-  passwordhash: {
+  passwordHash: {
     type: DataTypes.STRING,
     allowNull: true
   },
@@ -49,7 +49,7 @@ const User = sequelize.define('Users', {
     type: DataTypes.STRING,
     allowNull: true
   },
-  tokenhash: {
+  tokenHash: {
     type: DataTypes.STRING,
     allowNull: true
   },

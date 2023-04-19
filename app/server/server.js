@@ -6,10 +6,14 @@ const  {NotFound, BadRequest, errorHandler}  = require('../server/src/errors/err
 const userRoutes = require('../server/src/routes/userRoutes');
 const categoriesRoutes = require('../server/src/routes/categoriesRoutes');
 const productsRoutes=require("../server/src/routes/productsRoutes");
+const authorizationRoutes=require("../server/src/routes/authorizationRoutes");
+
+
 
 const app = express();
 const port = process.env.PORT || 5000;
 const path = require("path");
+const jwtCheck = require("./src/config/jwtCheck");
 
 
 const whitelist = ["http://localhost:3000"];
@@ -33,18 +37,20 @@ app.get('/', (req, res) => {
 app.get("/backend", (req, res) => {
   res.send({ express: "TOP G!i" });
 });
+app.use("/authorization",authorizationRoutes);
 
-app.use('/users', userRoutes);
-app.use('/categories',categoriesRoutes);
-app.use("/products",productsRoutes);
+app.use('/users', jwtCheck,userRoutes);
+app.use('/categories',jwtCheck,categoriesRoutes);
+app.use("/products", productsRoutes);
+
 app.use(errorHandler);
 
-//  Create a login route
-app.post("/login", (req, res) => {
-  console.log(req.body);
-  const { email, password } = req.body;
-  res.send({ email, password });
-});
+// //  Create a login route
+// app.post("/login", (req, res) => {
+//   console.log(req.body);
+//   const { email, password } = req.body;
+//   res.send({ email, password });
+// });
 
 // This displays message that the server running and listening to specified port
 app.listen(port, () => console.log(`Listening on port ${port}`));
