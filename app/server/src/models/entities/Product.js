@@ -22,6 +22,10 @@ const Product = sequelize.define('Product', {
     type: DataTypes.FLOAT,
     allowNull: true
   },
+  stock: {
+    type: DataTypes.INTEGER,
+    allowNull: true
+  },
   categoryId: {
     type: DataTypes.INTEGER,
     allowNull: false,
