@@ -37,6 +37,8 @@ app.get('/', (req, res) => {
 app.get("/backend", (req, res) => {
   res.send({ express: "TOP G!i" });
 });
+
+
 app.use("/authorization",authorizationRoutes);
 
 app.use('/users', jwtCheck,userRoutes);

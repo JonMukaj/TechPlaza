@@ -22,7 +22,7 @@ class CategoriesRepository {
     if (!existingCategory) {
       return null;
     }
-    return await existingCategory.update(category);
+    return await existingCategory.update(category.dataValues);
   }
 
   async DeleteCategory(id) {

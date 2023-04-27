@@ -4,8 +4,8 @@ const User = require('../models/entities/Users');
 class UserRepository {
 
   async CreateUser(user) {
-     await User.create(user);
-     return;
+    await User.create(user);
+    return;
   }
 
   async GetUserByEmail(email) {
@@ -29,15 +29,18 @@ class UserRepository {
     });
   }
 
-  
+
   async UpdateUser(id, user) {
     const existingUser = await User.findByPk(id);
     if (!existingUser) {
       return null;
     }
-    const updatedUser = await existingUser.update(user);
-    return updatedUser;
+
+    await existingUser.update(user.dataValues);
+    return;
   }
+  
+
 
 
   async DeleteUser(id) {

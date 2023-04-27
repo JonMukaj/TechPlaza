@@ -4,6 +4,7 @@ const { BadRequest, NotFound } = require("../errors/errorHandler");
 const RepositoryManager=require("../repositories/RepositoryManager");
 const {UserDTO}=require("../shared/DTO/mapper");
 const { generateToken } = require("../config/jwt");
+const User = require('../models/entities/Users');
 
 class UserService {
   constructor() {
@@ -89,22 +90,18 @@ class UserService {
     
   }
 
-  async login(request)
-  {
+  async login(request) {
     const user = await this.repositoryManager.userRepository.GetUserByEmail(request.email);
     if (!user) throw new NotFound(`User with email ${request.email} not found`);
-    
-   const isValid=await bcrypt.compare(request.password,user.passwordHash);
-   if(!isValid)
-   throw new BadRequest("Wrong password , try again");
 
-    var token=generateToken(user);
-    user.tokenHash=token;
-    user.firstname="fabio";
-    user.lastname="mysurname";
-   const test= await this.repositoryManager.userRepository.UpdateUser(user.id,user);    
+    const isValid = await bcrypt.compare(request.password, user.passwordHash);
+    if (!isValid)
+      throw new BadRequest("Wrong password , try again");
 
-    console.log(test);
+    var token = generateToken(user);
+    user.tokenHash = token;
+    await this.repositoryManager.userRepository.UpdateUser(user.id, user);
+   
     return token;
   }
 }
