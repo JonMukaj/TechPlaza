@@ -7,7 +7,7 @@ const userRoutes = require('../server/src/routes/userRoutes');
 const categoriesRoutes = require('../server/src/routes/categoriesRoutes');
 const productsRoutes=require("../server/src/routes/productsRoutes");
 const authorizationRoutes=require("../server/src/routes/authorizationRoutes");
-
+const orderRoute=require('../server/src/routes/orderRoute');
 
 
 const app = express();
@@ -38,7 +38,7 @@ app.get("/backend", (req, res) => {
   res.send({ express: "TOP G!i" });
 });
 
-
+app.use("/order",orderRoute);
 app.use("/authorization",authorizationRoutes);
 
 app.use('/users', jwtCheck,userRoutes);

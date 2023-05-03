@@ -26,7 +26,6 @@ class UserService {
   }
 
   async getUserByIdAsync(id) {
-    console.log("here");
     const user = await this.repositoryManager.userRepository.GetUserById(id);
 
     if (!user) {
@@ -45,7 +44,6 @@ class UserService {
   }
 
   async getUsersAsync() {
-
     const users= await this.repositoryManager.userRepository.GetUsers();
     const usersDto = users.map(user => new UserDTO(user)); // map each user to a UserDTO object
     return usersDto;

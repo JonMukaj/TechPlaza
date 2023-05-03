@@ -1,6 +1,7 @@
 const  UserService  = require('../services/UserService');
 const  ProductService = require('../services/ProductService');
 const CategoriesService=require("../services/CategoriesService");
+const OrderService = require('./OrderService');
 
 class ServiceManager {
   constructor() {
@@ -8,6 +9,7 @@ class ServiceManager {
       this.userService = new UserService();
       this.categoriesService=new CategoriesService();
       this.productService=new ProductService();
+      this.orderService=new OrderService();
     })()
   }
 
@@ -22,6 +24,9 @@ class ServiceManager {
     return this.productService;
   }
 
+  orderService(){
+    return this.orderService;
+  }
 
 }
 

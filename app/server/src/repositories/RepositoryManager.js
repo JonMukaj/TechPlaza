@@ -1,6 +1,8 @@
 const UserRepository = require('../repositories/UserRepository');
 const ProductRepository = require('../repositories/ProductRepository');
 const CategoriesRepository=require("../repositories/CategoriesRepository");
+const OrderRepository = require('./OrdersRepository');
+
 
 class RepositoryManager {
   constructor() {
@@ -8,6 +10,7 @@ class RepositoryManager {
       this.userRepository = new UserRepository();
       this.productRepository=new ProductRepository();
       this.categoriesRepository =  new CategoriesRepository();
+      this.orderRepository=new OrderRepository();
     })()
   }
 
@@ -23,7 +26,11 @@ class RepositoryManager {
     return this.productRepository;
   }
 
-  // add other methods for accessing other repositories here
+  orderRepository()
+  {
+    return this.orderRepository;
+  }
+
 }
 
 module.exports = RepositoryManager;
