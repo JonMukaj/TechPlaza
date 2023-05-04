@@ -34,7 +34,7 @@ class OrderController {
   });
 
   getOrders = asyncHandler(async (req, res) => {
-    const Order = await this.serviceManager.orderService.getOrderAsync();
+    const Order = await this.serviceManager.orderService.getOrdersAsync();
     res.json(Order);
   });
 

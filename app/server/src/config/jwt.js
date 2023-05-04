@@ -4,6 +4,7 @@ const { jwtSecret, jwtExpiration } = require("./jwtConfig");
 const generateToken = (user) => {
   return jwt.sign({
     id: user.id,
+    roleId:user.roleId,
     firstname: user.firstname
     ,lastname: user.lastname
     ,address: user.address
