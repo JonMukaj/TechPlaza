@@ -1,0 +1,22 @@
+name: Other
+
+on:
+  push:
+    branches-ignore:
+      - 'main'
+
+
+jobs:
+  build-other:
+    name: Build image for test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Build dummy image
+        uses: docker/build-push-action@v2
+        with:
+          context: ./app
+          file: ./app/Dockerfile
+          push: false
+          tags: dummy:0

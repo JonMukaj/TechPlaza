@@ -16,7 +16,7 @@ env:
 
 
 jobs:
-  build-test:
+  build-prod:
     name: Build and push container image for app in prod environment
     runs-on: ubuntu-latest
     steps:

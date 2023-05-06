@@ -1,25 +1,21 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import "./App.css";
-import { Switch, Route, Routes, Link } from "react-router-dom";
-import Login from "./Components/LogIn";
+import { Route, Routes } from "react-router-dom";
+import SignIn from "./Components/SignIn";
+import SignUp from "./Components/SignUp";
+import MainPage from "./Components/MainPage";
+import Navbar from "./Components/Navbar";
 
 function App() {
+  let isAuthenticated = false;
+
   return (
     <>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/login">Login</Link>{" "}
-          </li>
-        </ul>
-      </nav>
-      <h1>App</h1>
+      <Navbar />
       <Routes>
-        <Route path="/login" element={<Login />} />
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/" element={<MainPage />} />
       </Routes>
     </>
   );
