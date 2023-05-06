@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "techplaza",
+    "password": "a2!@fWS0G759",
+    "database": "test",
+    "host": "techplaza-test-westeurope-pgsql-flex.postgres.database.azure.com",
+    "dialect": "postgresql"
+  },
+  "test": {
+    "username": "techplaza",
+    "password": "a2!@fWS0G759",
+    "database": "test",
+    "host": "techplaza-test-westeurope-pgsql-flex.postgres.database.azure.com",
+    "dialect": "postgresql"
+  },
+  "production": {
+    "username": "techplaza",
+    "password": "a2!@fWS0G759",
+    "database": "test",
+    "host": "techplaza-test-westeurope-pgsql-flex.postgres.database.azure.com",
+    "dialect": "postgresql"
+  }
+}
