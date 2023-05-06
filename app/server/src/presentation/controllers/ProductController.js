@@ -26,7 +26,7 @@ class ProductController {
   });
 
   updateProduct = asyncHandler(async (req, res) => {
-    const prod = await this.serviceManager.productService.updateProduct(req.params.id, req.body);
+    const prod = await this.serviceManager.productService.UpdateProduct(req.params.id, req.body);
     res.json(prod);
   });
 
@@ -38,6 +38,19 @@ class ProductController {
   getProducts = asyncHandler(async (req, res) => {
     const prod = await this.serviceManager.productService.getProductsAsync();
     res.json(prod);
+  });
+
+
+  updateProductImage = asyncHandler(async (req, res) => {
+    const { id } = req.params;
+
+    console.log(req.params);
+    const imageFile = req.file;
+    if (!imageFile) {
+      throw new BadRequest('No image file provided');
+    }
+    const updatedProduct = await this.serviceManager.productService.updateProductImageAsync(id, imageFile.filename);
+    res.json(true);
   });
 
 

@@ -11,5 +11,11 @@ const loginSchema = Joi.object({
     password:Joi.string().required(),
     confirmPassword:Joi.string().required()
   });
+
+
+  const refreshSchema=Joi.object({
+    accessToken:Joi.string().required() ,
+    refreshToken:Joi.string().required()
+  });
   
-  module.exports={loginSchema,signUpSchema};
+  module.exports={loginSchema,signUpSchema,refreshSchema};

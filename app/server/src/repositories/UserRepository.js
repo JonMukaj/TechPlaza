@@ -35,7 +35,6 @@ class UserRepository {
     if (!existingUser) {
       return null;
     }
-
     await existingUser.update(user.dataValues);
     return;
   }

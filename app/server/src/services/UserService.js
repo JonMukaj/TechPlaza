@@ -5,6 +5,9 @@ const RepositoryManager=require("../repositories/RepositoryManager");
 const {UserDTO}=require("../shared/DTO/mapper");
 const { generateToken } = require("../config/jwt");
 const User = require('../models/entities/Users');
+const jwt = require("jsonwebtoken");
+const { jwtSecret, jwtExpiration } = require("../config/jwtConfig");
+const crypto=require("crypto");
 
 class UserService {
   constructor() {
@@ -97,11 +100,55 @@ class UserService {
       throw new BadRequest("Wrong password , try again");
 
     var token = generateToken(user);
+    var refreshToken=await this.generateRefreshToken();
+
     user.tokenHash = token;
+    user.refreshToken=refreshToken;
     await this.repositoryManager.userRepository.UpdateUser(user.id, user);
-   
-    return token;
+
+    return {token,refreshToken};
   }
+
+  async refresh(request) {
+    const { accessToken, refreshToken } = request;
+
+    const decodedToken = jwt.verify(accessToken, jwtSecret);
+    const { id, roleId, email } = decodedToken;
+
+    const user = await this.repositoryManager.userRepository.GetUserById(id);
+    if (!user || user.roleId !== roleId || user.email !== email) {
+      throw new NotFound(`User not found or invalid tokens`);
+    }
+    if (user.refreshToken != refreshToken)
+      throw new BadRequest("Invalid refresh token!");
+
+
+    // Generate a new access token with updated expiration time
+    const newAccessToken = generateToken(user);
+    const newRefreshToken = await this.generateRefreshToken();
+
+    user.tokenHash = newAccessToken;
+    user.refreshToken = newRefreshToken;
+    await this.repositoryManager.userRepository.UpdateUser(user.id,user);
+
+    return { newAccessToken, newRefreshToken };
+  }
+
+  async generateRefreshToken() {
+    return new Promise((resolve, reject) => {
+      crypto.randomBytes(32, (err, buffer) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(buffer.toString('base64'));
+        }
+      });
+    });
+  }
+
+
+
+  
 }
 
 module.exports = UserService;

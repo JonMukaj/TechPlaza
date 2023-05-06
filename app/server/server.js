@@ -14,6 +14,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 const path = require("path");
 const jwtCheck = require("./src/config/jwtCheck");
+const testJwt=require("./src/config/jwt");
 
 
 const whitelist = ["http://localhost:3000"];
@@ -43,7 +44,10 @@ app.use("/authorization",authorizationRoutes);
 
 app.use('/users', jwtCheck,userRoutes);
 app.use('/categories',jwtCheck,categoriesRoutes);
-app.use("/products", productsRoutes);
+
+
+//TEST FOR JWT
+app.use("/products",testJwt.verifyToken, productsRoutes);
 
 app.use(errorHandler);
 

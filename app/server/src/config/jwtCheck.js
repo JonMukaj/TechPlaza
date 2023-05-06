@@ -6,6 +6,7 @@ function verifyToken(req, res, next) {
   if (authHeader) {
     const token = authHeader.split(' ')[1];
     jwt.verify(token, jwtSecret, (err, user) => {
+      console.log(err);
       if (err) {
         return res.sendStatus(403);
       }

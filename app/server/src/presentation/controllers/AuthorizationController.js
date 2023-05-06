@@ -13,8 +13,9 @@ loginUser = asyncHandler( async (req,res)=>{
     const {error , value}=validate.loginSchema.validate(req.body);
     if(error) throw new BadRequest(error.message);
 
-    const token=await this.serviceManager.userService.login(value);
-    res.json({accessToken:token});
+    const tokens=await this.serviceManager.userService.login(value);
+
+    res.json({accessToken:tokens.token,refreshToken: tokens.refreshToken});
 })
 
 signUp=asyncHandler(async (req,res)=>{
@@ -23,6 +24,16 @@ signUp=asyncHandler(async (req,res)=>{
 
     const user=await this.serviceManager.userService.signUp(value);
     res.json(user);
+})
+
+
+refreshToken=asyncHandler( async (req,res)=>{
+    const {error , value}=validate.refreshSchema.validate(req.body);
+    if(error) throw new BadRequest(error.message);
+
+    const tokens=await this.serviceManager.userService.refresh(value);
+ 
+    res.json({accessToken:tokens.newAccessToken,refreshToken: tokens.newRefreshToken});
 })
 
 }

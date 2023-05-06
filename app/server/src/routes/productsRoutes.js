@@ -1,5 +1,6 @@
 const express = require('express');
 const ProductController = require('../presentation/controllers/ProductController');
+const { upload } = require('../config/fileUpload');
 
 const router = express.Router();
 const productController = new ProductController();
@@ -9,4 +10,7 @@ router.get('/:id', productController.getProductById.bind(productController));
 router.put('/:id', productController.updateProduct.bind(productController));
 router.delete('/:id', productController.deleteProduct.bind(productController));
 router.get('/', productController.getProducts.bind(productController));
+router.put('/image/:id', upload.single('productImage'), productController.updateProductImage);
+
+
 module.exports = router;

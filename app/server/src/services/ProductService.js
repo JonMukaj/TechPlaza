@@ -46,6 +46,19 @@ class ProductService {
     const list = prod.map(i => new ProductDTO(i)); 
     return list;
   }
+
+
+  async updateProductImageAsync(productId, image) {
+    const product = await this.repositoryManager.productRepository.GetProductById(productId);
+    if (!product) {
+      throw new NotFound(`Product with ID ${productId} not found`);
+    }
+    console.log(image);
+    product.image = image;
+    await product.save();
+    return true;
+  }
+
 }
 
 module.exports = ProductService;
