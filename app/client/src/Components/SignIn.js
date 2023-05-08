@@ -1,5 +1,5 @@
-import React, { useState, useContext } from "react";
-import authContext from "../Context/AuthProvider";
+import React, { useState } from "react";
+import authContext from "../context/AuthProvider";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -12,8 +12,9 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Link } from "react-router-dom";
 import axios from "../api/axios";
+import useAuth from "../hooks/useAuth";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 const LOGIN_URL = "/login";
 
@@ -39,9 +40,13 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignIn() {
-  const setAuth = useContext(authContext);
+  const { setAuth } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location?.state?.from.pathname || { pathname: "/" };
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errMsg, setErrMsg] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -50,16 +55,25 @@ export default function SignIn() {
     console.log(data);
 
     try {
-      const response = await axios.post(LOGIN_URL, JSON.stringify(data), {
-        Headers: { "Content-Type": "application/json", withCredentials: true },
-      });
-      console.log(JSON.stringify(response?.data));
-      const accessToken = response?.data?.accessToken;
-      const user = response?.data?.user;
-      const password = response?.data?.password;
+      //   const response = await axios.post(LOGIN_URL, JSON.stringify(data), {
+      //     Headers: { "Content-Type": "application/json", withCredentials: true },
+      //   });
+      //   console.log(JSON.stringify(response?.data));
+      //   const accessToken = response?.data?.accessToken;
+      //   const user = response?.data?.user;
+      //   const password = response?.data?.password;
       // const roles = response?.data?.roles;
       // setAuth({ user, password, roles, accessToken });
-      setAuth({ user, password, accessToken });
+      const user = "test";
+      const password = "test";
+      const accessToken = "test";
+      const roles = [2];
+      localStorage.setItem("user", user);
+      localStorage.setItem("password", password);
+      localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("roles", roles);
+      setAuth({ user, password, accessToken, roles });
+      navigate(from, { replace: true });
     } catch (error) {
       setEmail("");
       setPassword("");
