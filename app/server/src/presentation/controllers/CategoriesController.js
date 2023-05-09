@@ -10,9 +10,9 @@ class CategoriesController {
 
   createCategory = asyncHandler(async (req, res) => {
     const { error, value } = validator.validate(req.body);
-    if (error) {
+    if (error) 
       throw new BadRequest(error.message);
-    }
+
     const category = await this.serviceManager.categoriesService.createCategoryAsync(value);
     res.json(category);
   });
@@ -24,8 +24,11 @@ class CategoriesController {
   });
 
   updateCategory = asyncHandler(async (req, res) => {
-    const category = await this.serviceManager.categoriesService.updateCategory(req.params.id, req.body);
-    res.json(category);
+    const { error, value } = validator.validate(req.body);   
+     if (error) 
+      throw new BadRequest(error.message);
+    await this.serviceManager.categoriesService.updateCategoryAsync(req.params.id, value);
+    res.json(true);
   });
 
   deleteCategory = asyncHandler(async (req, res) => {

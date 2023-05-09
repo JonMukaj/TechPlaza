@@ -22,7 +22,7 @@ class ProductRepository {
     if (!existingProd) {
       return null;
     }
-    return await existingProd.update(category.dataValues);
+    return await existingProd.update(prod.dataValues);
   }
 
   async DeleteProduct(id) {

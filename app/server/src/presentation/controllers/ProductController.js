@@ -26,7 +26,11 @@ class ProductController {
   });
 
   updateProduct = asyncHandler(async (req, res) => {
-    const prod = await this.serviceManager.productService.UpdateProduct(req.params.id, req.body);
+    const { error, value } = validate.validate(req.body);
+    if (error) {
+      throw new BadRequest(error.message);
+    }
+    const prod = await this.serviceManager.productService.updateProductAsync(req.params.id, value);
     res.json(prod);
   });
 

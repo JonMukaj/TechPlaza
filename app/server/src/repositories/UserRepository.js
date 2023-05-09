@@ -1,5 +1,6 @@
 const { Op } = require('sequelize');
 const User = require('../models/entities/Users');
+const { NotFound } = require('../errors/errorHandler');
 
 class UserRepository {
 
@@ -33,14 +34,12 @@ class UserRepository {
   async UpdateUser(id, user) {
     const existingUser = await User.findByPk(id);
     if (!existingUser) {
-      return null;
+      throw new NotFound(`User with Id: ${id} does not exists!`);
     }
+   // console.log(user);
     await existingUser.update(user.dataValues);
     return;
   }
-  
-
-
 
   async DeleteUser(id) {
     return await User.destroy({

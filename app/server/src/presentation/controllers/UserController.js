@@ -3,6 +3,10 @@ const asyncHandler = require('express-async-handler');
 const { NotFound, BadRequest } = require('../../errors/errorHandler');
 const ServiceManager=require("../../services/ServiceManager");
 const validator=require("../validation/userValidation");
+
+
+
+
 class UserController {
   constructor() {
    // this.userService = new UserService();
@@ -30,7 +34,11 @@ class UserController {
   });
 
   updateUser = asyncHandler(async (req, res) => {
-    const user = await this.serviceManager.userService.updateUserAsync(req.params.id, req.body);
+    const {error , value}=validator.userUpdate.validate(req.body);
+    if(error) throw new BadRequest(error.message);
+
+    console.log(value);
+    const user = await this.serviceManager.userService.updateUserAsync(req.params.id, value);
     res.json(user);
   });
 
