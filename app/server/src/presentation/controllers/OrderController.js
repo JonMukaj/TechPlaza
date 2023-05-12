@@ -40,7 +40,7 @@ class OrderController {
 
   getOrdersByUserId = asyncHandler(async (req, res) => {
     const { userId } = req.params;
-    const orders = await this.serviceManager.productService.getOrdersByUserIdAsync(userId);
+    const orders = await this.serviceManager.orderService.getOrdersByUserIdAsync(userId);
     res.json(orders);
   });
 }

@@ -26,11 +26,26 @@ class OrderService {
   }
 
 
-  async updateOrderAsync(id, req) {
-    return await this.repositoryManager.orderRepository.UpdateOrder(id,req);
+  async updateOrderAsync(id, request) {
+    const order = await this.repositoryManager.orderRepository.GetOrderById(id);
+    if (!order) {
+      throw new NotFound(`Order with ID ${id} not found`);
+    }
+
+    for (const key in request) {
+      if (request.hasOwnProperty(key)) {
+        order[key] = request[key];
+      }
+    }
+
+    return await this.repositoryManager.orderRepository.UpdateOrder(id,order);
   }
 
   async deleteOrderAsync(id) {
+    const order = await this.repositoryManager.orderRepository.GetOrderById(id);
+    if (!order) {
+      throw new NotFound(`Order with ID ${id} not found`);
+    }
     return await this.repositoryManager.orderRepository.DeleteOrder(id);
   }
 

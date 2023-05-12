@@ -23,7 +23,7 @@ signUp=asyncHandler(async (req,res)=>{
     if(error) throw new BadRequest(error.message);
 
     const user=await this.serviceManager.userService.signUp(value);
-    res.json(user);
+    res.json(true);
 })
 
 

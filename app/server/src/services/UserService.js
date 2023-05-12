@@ -1,31 +1,31 @@
 const bcrypt = require('bcryptjs');
 const UserRepository = require('../repositories/UserRepository');
 const { BadRequest, NotFound } = require("../errors/errorHandler");
-const RepositoryManager=require("../repositories/RepositoryManager");
-const {UserDTO}=require("../shared/DTO/mapper");
+const RepositoryManager = require("../repositories/RepositoryManager");
+const { UserDTO } = require("../shared/DTO/mapper");
 const { generateToken } = require("../config/jwt");
 const User = require('../models/entities/Users');
 const jwt = require("jsonwebtoken");
 const { jwtSecret, jwtExpiration } = require("../config/jwtConfig");
-const crypto=require("crypto");
+const crypto = require("crypto");
 
 class UserService {
   constructor() {
-   this.repositoryManager=new RepositoryManager();
+    this.repositoryManager = new RepositoryManager();
   }
 
   async createUserAsync(user) {
-   // const hashedPassword = await bcrypt.hash(user.password, 10);
-   // console.log(hashedPassword.toString());
+    // const hashedPassword = await bcrypt.hash(user.password, 10);
+    // console.log(hashedPassword.toString());
     const userToCreate = {
       ...user,
-   //   passwordhash: hashedPassword !=null?hashedPassword.toString(): ""
+      //   passwordhash: hashedPassword !=null?hashedPassword.toString(): ""
     };
     return await this.repositoryManager.userRepository.CreateUser(userToCreate);
   }
 
   async getUserByEmailAsync(email) {
-   return await this.repositoryManager.userRepository.GetUserByEmail(email);
+    return await this.repositoryManager.userRepository.GetUserByEmail(email);
   }
 
   async getUserByIdAsync(id) {
@@ -38,8 +38,15 @@ class UserService {
   }
 
 
-  async updateUserAsync(id, user) {
-    return await this.repositoryManager.userRepository.UpdateUser(id, user);
+  async updateUserAsync(id, request) {
+      const user = await this.repositoryManager.userRepository.GetUserById(id);
+  
+      for (const key in request) {
+        if (request.hasOwnProperty(key)) {
+          user[key] = request[key];
+        }
+      }  
+      return await this.repositoryManager.userRepository.UpdateUser(id, user);
   }
 
   async deleteUserAsync(id) {
@@ -47,7 +54,7 @@ class UserService {
   }
 
   async getUsersAsync() {
-    const users= await this.repositoryManager.userRepository.GetUsers();
+    const users = await this.repositoryManager.userRepository.GetUsers();
     const usersDto = users.map(user => new UserDTO(user)); // map each user to a UserDTO object
     return usersDto;
   }
@@ -60,35 +67,35 @@ class UserService {
     const hashedPassword = await bcrypt.hash(user.password, "long!@#!asd15Hash");
     const userToCreate = {
       ...user,
-      passwordhash: hashedPassword !=null?hashedPassword.toString(): ""
+      passwordhash: hashedPassword != null ? hashedPassword.toString() : ""
     };
     return await this.repositoryManager.userRepository.CreateUser(userToCreate);
 
   }
 
 
-  async signUp(request)
-  {
+  async signUp(request) {
     const user = await this.repositoryManager.userRepository.GetUserByEmail(request.email);
     if (user) throw new NotFound(`User with email ${request.email} already exists`);
 
-    if(request.password != request.confirmPassword)
-    throw new BadRequest(`Password doesnt match!`);
+    if (request.password != request.confirmPassword)
+      throw new BadRequest(`Password doesnt match!`);
 
     // Generate a salt
     const salt = bcrypt.genSaltSync(10);
-    
+
     // Hash the password with the salt
-    const hashedPassword= bcrypt.hashSync(request.password, salt);
+    const hashedPassword = bcrypt.hashSync(request.password, salt);
 
     const userToCreate = {
       ...request,
-      passwordHash: hashedPassword !=null?hashedPassword.toString(): ""
+      passwordHash: hashedPassword != null ? hashedPassword.toString() : "",
+      roleId: 1
     };
 
     console.log(userToCreate);
     return await this.repositoryManager.userRepository.CreateUser(userToCreate);
-    
+
   }
 
   async login(request) {
@@ -100,13 +107,13 @@ class UserService {
       throw new BadRequest("Wrong password , try again");
 
     var token = generateToken(user);
-    var refreshToken=await this.generateRefreshToken();
+    var refreshToken = await this.generateRefreshToken();
 
     user.tokenHash = token;
-    user.refreshToken=refreshToken;
+    user.refreshToken = refreshToken;
     await this.repositoryManager.userRepository.UpdateUser(user.id, user);
 
-    return {token,refreshToken};
+    return { token, refreshToken };
   }
 
   async refresh(request) {
@@ -129,7 +136,7 @@ class UserService {
 
     user.tokenHash = newAccessToken;
     user.refreshToken = newRefreshToken;
-    await this.repositoryManager.userRepository.UpdateUser(user.id,user);
+    await this.repositoryManager.userRepository.UpdateUser(user.id, user);
 
     return { newAccessToken, newRefreshToken };
   }
@@ -148,7 +155,7 @@ class UserService {
 
 
 
-  
+
 }
 
 module.exports = UserService;
