@@ -6,16 +6,19 @@ services:
       dockerfile: Dockerfile.dev
     working_dir: /root/server
     container_name: techplaza
+    # network_mode: "host"
     ports:
       - 5000:5000
     environment:
       - NODE_ENV=development
+      - DB_UPSTREAM= http://${DOCKER_GATEWAY_HOST:-host.docker.internal}:5000
     deploy:
       restart_policy:
         condition: on-failure
         max_attempts: 3
     volumes:
       - "./server:/root/server:ro"
+      - "./client/build:/root/client/build:ro"
     command: "npm run start:dev"
   # postgres:
   #   image: postgres:14.7-alpine
