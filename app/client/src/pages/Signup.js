@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import BreadCrumb from "../components/BreadCrumb";
+import BreadCrumb from "../Components/BreadCrumb";
 import { Link, useNavigate } from "react-router-dom";
-import Container from "../components/Container";
+import Container from "../Components/Container";
 import CircularProgress from "@mui/material/CircularProgress";
 import Alert from "@mui/material/Alert";
 import { signupEndpoint } from "../api/userCalls";

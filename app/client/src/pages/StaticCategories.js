@@ -1,5 +1,5 @@
 import React from "react";
-import Container from "../components/Container";
+import Container from "../Components/Container";
 import { Link } from "react-router-dom";
 
 const StaticCategories = () => {

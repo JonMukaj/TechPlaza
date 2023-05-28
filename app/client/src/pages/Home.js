@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Marquee from "react-fast-marquee";
-import ProductCard from "../components/productCard/ProductCard";
-import Container from "../components/Container";
+import ProductCard from "../Components/productCard/ProductCard";
+import Container from "../Components/Container";
 import StaticCategories from "./StaticCategories";
 import { makeAuthenticatedRequest } from "../services/product.service";
 import Box from "@mui/material/Box";

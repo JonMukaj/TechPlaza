@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import ReactStars from "react-rating-stars-component";
-import BreadCrumb from "../components/BreadCrumb";
-import ProductCard from "../components/productCard/ProductCard";
+import BreadCrumb from "../Components/BreadCrumb";
+import ProductCard from "../Components/productCard/ProductCard";
 import ReactImageZoom from "react-image-zoom";
 import { AiOutlineHeart } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import Container from "../components/Container";
+import Container from "../Components/Container";
 import { ShopContext } from "../context/shopContext";
 import { useParams } from "react-router-dom";
 import { makeAuthenticatedRequest } from "../services/product.service";

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import BreadCrumb from "../components/BreadCrumb";
+import BreadCrumb from "../Components/BreadCrumb";
 import ReactStars from "react-rating-stars-component";
-import ProductCard from "../components/productCard/ProductCard";
-import Container from "../components/Container";
+import ProductCard from "../Components/productCard/ProductCard";
+import Container from "../Components/Container";
 import { makeAuthenticatedRequest } from "../services/product.service";
 import { useParams } from "react-router-dom";
 

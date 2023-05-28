@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
-import Layout from "./components/Layout";
-import MainPage from "./components/MainPage";
-import RequireAuth from "./components/RequireAuth";
-import Unauthorized from "./components/Unauthorized";
+import Layout from "./Components/Layout";
+import MainPage from "./Components/MainPage";
+import RequireAuth from "./Components/RequireAuth";
+import Unauthorized from "./Components/Unauthorized";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Contact from "./pages/Contact";

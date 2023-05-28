@@ -1,6 +1,6 @@
 import React from "react";
-import BreadCrumb from "../components/BreadCrumb";
-import Container from "../components/Container";
+import BreadCrumb from "../Components/BreadCrumb";
+import Container from "../Components/Container";
 
 const TermAndContions = () => {
   return (

@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
-import BreadCrumb from "../components/BreadCrumb";
+import BreadCrumb from "../Components/BreadCrumb";
 import { AiFillDelete } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import Container from "../components/Container";
+import Container from "../Components/Container";
 import CartItem from "./CartItem";
 import { ShopContext } from "../context/shopContext";
 

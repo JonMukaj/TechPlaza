@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { BiArrowBack } from "react-icons/bi";
-import Container from "../components/Container";
+import Container from "../Components/Container";
 
 const Checkout = () => {
   return (

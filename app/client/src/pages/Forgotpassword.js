@@ -1,7 +1,7 @@
 import React from "react";
-import BreadCrumb from "../components/BreadCrumb";
+import BreadCrumb from "../Components/BreadCrumb";
 import { Link } from "react-router-dom";
-import Container from "../components/Container";
+import Container from "../Components/Container";
 const Forgotpassword = () => {
   return (
     <>
