@@ -3,7 +3,6 @@ import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout";
 import MainPage from "./components/MainPage";
-import ProductList from "./components/ProductList";
 import RequireAuth from "./components/RequireAuth";
 import Unauthorized from "./components/Unauthorized";
 import Home from "./pages/Home";
