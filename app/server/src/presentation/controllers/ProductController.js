@@ -57,6 +57,17 @@ class ProductController {
     res.json(true);
   });
 
+  getProductsByIds = asyncHandler(async (req, res) => {
+    const { productIds } = req.body;
+
+    if (!productIds || !Array.isArray(productIds)) {
+      throw new BadRequest('Invalid product IDs provided');
+    }
+
+    const products = await this.serviceManager.productService.getProductsByIdsAsync(productIds);
+
+    res.json(products);
+  });
 
 
 }

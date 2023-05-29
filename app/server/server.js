@@ -8,7 +8,7 @@ const categoriesRoutes = require('../server/src/routes/categoriesRoutes');
 const productsRoutes=require("../server/src/routes/productsRoutes");
 const authorizationRoutes=require("../server/src/routes/authorizationRoutes");
 const orderRoute=require('../server/src/routes/orderRoute');
-
+const reviewRoute=require("../server/src/routes/reviewRoute");
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -39,15 +39,15 @@ app.get("/backend", (req, res) => {
   res.send({ express: "TOP G!i" });
 });
 
-app.use("/order",orderRoute);
+app.use("/orders",orderRoute);
 app.use("/authorization",authorizationRoutes);
-
+app.use("/reviews",reviewRoute);
 app.use('/users', jwtCheck,userRoutes);
-app.use('/categories',jwtCheck,categoriesRoutes);
+app.use('/categories',categoriesRoutes);
 
 
 //TEST FOR JWT
-app.use("/products",testJwt.verifyToken, productsRoutes);
+app.use("/products", productsRoutes);
 
 app.use(errorHandler);
 

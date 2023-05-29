@@ -1,7 +1,7 @@
 const { BadRequest, NotFound } = require("../errors/errorHandler");
 const RepositoryManager = require("../repositories/RepositoryManager");
 const { log } = require('console');
-const { ProductDTO } = require("../shared/DTO/mapper");
+const { ProductDTO,GetAllProductsDTO } = require("../shared/DTO/mapper");
 
 class ProductService {
   constructor() {
@@ -48,9 +48,8 @@ class ProductService {
   }
 
   async getProductsAsync() {
-
     const prod = await this.repositoryManager.productRepository.GetProducts();
-    const list = prod.map(i => new ProductDTO(i));
+    const list = prod.map(i => new GetAllProductsDTO(i));
     return list;
   }
 
@@ -71,6 +70,16 @@ class ProductService {
     await product.save();
     return true;
   }
+
+
+  async getProductsByIdsAsync(productIds) {
+    const products = await Promise.all(
+      productIds.map((productId) =>  this.repositoryManager.productRepository.GetProductById(productId))
+    );
+    const prodDto = products.map(i => new GetAllProductsDTO(i));
+    return prodDto;
+  }
+
 
 }
 
