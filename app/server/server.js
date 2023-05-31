@@ -28,6 +28,9 @@ app.use(cors());
 
 
 app.use(express.static(path.resolve(__dirname, '../client/build')));
+//app.use("/static", express.static(path.resolve(__dirname, '../server/src/images')));  //http://localhost:5000/static/im.png
+app.use(express.static(path.resolve(__dirname, '../server/src/images')));   //http://localhost:5000/im.png
+ 
 
 
 // Landing page of React
