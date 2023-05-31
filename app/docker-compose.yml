@@ -17,7 +17,7 @@ services:
         condition: on-failure
         max_attempts: 3
     volumes:
-      - "./server:/root/server:ro"
+      - "./server:/root/server:rw"
       - "./client/build:/root/client/build:ro"
     command: "npm run start:dev"
   # postgres:
