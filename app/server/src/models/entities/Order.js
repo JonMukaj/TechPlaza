@@ -19,10 +19,10 @@ const Order = sequelize.define('Order', {
         type: DataTypes.INTEGER,
         allowNull: true,
         references: {
-          model: Users,
-          key: 'id'
+            model: Users,
+            key: 'id'
         }
-      },
+    },
     isActive: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
@@ -41,5 +41,4 @@ const Order = sequelize.define('Order', {
 });
 
 Order.belongsTo(Users, { foreignKey: 'userId' })
-
 module.exports = Order;

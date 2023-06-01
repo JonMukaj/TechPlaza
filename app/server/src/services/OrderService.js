@@ -63,6 +63,25 @@ class OrderService {
    // const list = orders.map(i => new OrderDTO(i)); 
     return orders;
   }
+
+
+  async createOrderWithShipping(request)
+  {
+    let total=0;
+    request.order.forEach( async prod => {
+      const existingProduct = await this.repositoryManager.productRepository.GetProductById(prod.id);
+      if (!product) {
+        throw new NotFound(`Product with ID ${productId} not found`);
+      }
+
+      total+=existingProduct.stock*prod.quantity;
+      
+
+
+
+    });
+
+  }
 }
 
 module.exports = OrderService;
