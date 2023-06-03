@@ -100,6 +100,7 @@ class UserService {
 
   async login(request) {
     const user = await this.repositoryManager.userRepository.GetUserByEmail(request.email);
+    console.log(user);
     if (!user) throw new NotFound(`User with email ${request.email} not found`);
 
     const isValid = await bcrypt.compare(request.password, user.passwordHash);

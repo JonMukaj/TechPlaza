@@ -2,6 +2,8 @@ const  UserService  = require('../services/UserService');
 const  ProductService = require('../services/ProductService');
 const CategoriesService=require("../services/CategoriesService");
 const OrderService = require('./OrderService');
+const ReviewService=require("../services/ReviewService");
+const ShippingAddressService = require('./ShippingAddressService');
 
 class ServiceManager {
   constructor() {
@@ -10,6 +12,8 @@ class ServiceManager {
       this.categoriesService=new CategoriesService();
       this.productService=new ProductService();
       this.orderService=new OrderService();
+      this.reviewService=new ReviewService();
+      this.shippingAddressService=new ShippingAddressService();
     })()
   }
 
@@ -26,6 +30,15 @@ class ServiceManager {
 
   orderService(){
     return this.orderService;
+  }
+  
+  reviewService(){
+    return this.reviewService;
+  }
+
+  shippingAddressService()
+  {
+    return this.shippingAddressService;
   }
 
 }

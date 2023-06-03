@@ -8,6 +8,8 @@ const categoriesRoutes = require('../server/src/routes/categoriesRoutes');
 const productsRoutes=require("../server/src/routes/productsRoutes");
 const authorizationRoutes=require("../server/src/routes/authorizationRoutes");
 const orderRoute=require('../server/src/routes/orderRoute');
+const reviewRoute=require("../server/src/routes/reviewRoute");
+const shippingRoute=require("../server/src/routes/shippingAddressRoutes");
 
 
 const app = express();
@@ -28,6 +30,9 @@ app.use(cors());
 
 
 app.use(express.static(path.resolve(__dirname, '../client/build')));
+//app.use("/static", express.static(path.resolve(__dirname, '../server/src/images')));  //http://localhost:5000/static/im.png
+app.use(express.static(path.resolve(__dirname, '../server/src/images')));   //http://localhost:5000/im.png
+ 
 
 
 // Landing page of React
@@ -39,15 +44,16 @@ app.get("/backend", (req, res) => {
   res.send({ express: "TOP G!i" });
 });
 
-app.use("/order",orderRoute);
+app.use("/orders",jwtCheck,orderRoute);
 app.use("/authorization",authorizationRoutes);
-
+app.use("/reviews",reviewRoute);
 app.use('/users', jwtCheck,userRoutes);
-app.use('/categories',jwtCheck,categoriesRoutes);
+app.use('/categories',categoriesRoutes);
+app.use("/shipping",shippingRoute);
 
 
 //TEST FOR JWT
-app.use("/products",testJwt.verifyToken, productsRoutes);
+app.use("/products", productsRoutes);
 
 app.use(errorHandler);
 

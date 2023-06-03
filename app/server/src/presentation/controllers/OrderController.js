@@ -19,6 +19,7 @@ class OrderController {
 
   getOrderById = asyncHandler(async (req, res) => {
     const { id } = req.params;
+   // console.log(req.user); get the user Id for the JWT Login
     const or=await this.serviceManager.orderService.getOrderByIdAsync(id);
      res.json(or);
   });
@@ -42,6 +43,29 @@ class OrderController {
     const { userId } = req.params;
     const orders = await this.serviceManager.orderService.getOrdersByUserIdAsync(userId);
     res.json(orders);
+  });
+
+
+  createOrderWithShipping = asyncHandler(async (req, res) => {
+    const { order, firstName, lastName, email, phoneNumber, address, city, zipcode } = req.body;
+
+    // Create the order
+    const createdOrder = await this.serviceManager.orderService.createOrderAsync(order);
+
+    // Create the shipping address
+    const createdShippingAddress = await this.serviceManager.shippingAddressService.createShippingAddressAsync({
+      orderId: createdOrder.id,
+      firstName,
+      lastName,
+      email,
+      phoneNumber,
+      address,
+      city,
+      zipcode
+    });
+
+    // Return the created order as the response
+    res.json(createdOrder);
   });
 }
 
