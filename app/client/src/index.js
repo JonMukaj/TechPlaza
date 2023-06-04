@@ -5,19 +5,19 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/AuthProvider";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
-import { ShopContextProvider } from "./context/shopContext";
+import { CartProvider } from "./context/CartProvider";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <AuthProvider>
-      <ShopContextProvider>
+      <CartProvider>
         <BrowserRouter>
           <Routes>
             <Route path="/*" element={<App />} />
           </Routes>
         </BrowserRouter>
-      </ShopContextProvider>
+      </CartProvider>
     </AuthProvider>
   </React.StrictMode>
 );

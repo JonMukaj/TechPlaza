@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
 import { Button } from "@mui/material";
-import { makeAuthenticatedRequest } from "../../services/product.service";
+import { makeRequest } from "../../services/product.service";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
@@ -28,8 +28,7 @@ const Header = () => {
 
   const getCategories = async () => {
     try {
-      const response = await makeAuthenticatedRequest("categories", "GET");
-      console.log(response);
+      const response = await makeRequest("/categories", "GET");
       setCategories(response);
     } catch (error) {
       console.log(error);
@@ -80,7 +79,7 @@ const Header = () => {
                   {user ? (
                     <>
                       <AccountCircleIcon />
-                      <Link to="/login">
+                      <Link to="/account">
                         <Button>Account</Button>
                       </Link>
                       <Button onClick={handleLogout}>Logout</Button>

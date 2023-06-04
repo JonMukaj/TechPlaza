@@ -1,80 +1,90 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import BreadCrumb from "../Components/BreadCrumb";
 import Container from "../Components/Container";
+import { makeRequest } from "../services/product.service";
+import { getWishlist, removeFromWishlist } from "../services/wishlist.service";
+import { Link } from "react-router-dom";
+import { LinearProgress } from "@mui/material";
 
 const Wishlist = () => {
+  const [wishlistItems, setWishlistItems] = useState([]);
+  const [isWishlistLoading, setIsWishlistLoading] = useState(false);
+
+  const handleRemoveFromWishlist = (productId) => {
+    console.log("remove");
+    removeFromWishlist(productId);
+    let response = getWishlistItems();
+    setWishlistItems(response);
+  };
+
+  const getWishlistItems = async () => {
+    let items = getWishlist();
+    if (!items) return;
+    items = { productIds: items };
+    const response = await makeRequest(`/products/ids`, "POST", items);
+    setWishlistItems(response);
+  };
+
+  useEffect(() => {
+    let cleanUP = false;
+    setIsWishlistLoading(true);
+    try {
+      !cleanUP && (async () => await getWishlistItems())();
+    } catch (error) {
+      console.log(`Error while fetching products`);
+    } finally {
+      setIsWishlistLoading(false);
+    }
+    return () => {
+      cleanUP = true;
+    };
+  }, []);
+
   return (
     <>
       <BreadCrumb title="Wishlist" />
       <Container class1="wishlist-wrapper home-wrapper-2 py-5">
-        <div className="row">
-          <div className="col-3">
-            <div className="wishlist-card position-relative">
-              <img
-                src="images/cross.svg"
-                alt="cross"
-                className="position-absolute cross img-fluid"
-              />
-              <div className="wishlist-card-image">
-                <img
-                  src="images/watch.jpg"
-                  className="img-fluid w-100"
-                  alt="watch"
-                />
-              </div>
-              <div className="py-3 px-3">
-                <h5 className="title">
-                  Honor T1 7.0 1 GB RAM 8 GB ROM 7 Inch With Wi-Fi+3G Tablet
-                </h5>
-                <h6 className="price">$ 100</h6>
-              </div>
+        {isWishlistLoading ? (
+          <>
+            <LinearProgress color="secondary" />
+            <LinearProgress color="success" />
+            <LinearProgress color="inherit" />
+          </>
+        ) : !wishlistItems.length ? (
+          <p>No items in wishlist</p>
+        ) : (
+          <>
+            <div className="row">
+              {wishlistItems.map((item) => (
+                <>
+                  <div className="col-3" style={{ border: "1px solid black" }}>
+                    <div className="wishlist-card position-relative">
+                      <div
+                        className="product-remove"
+                        onClick={() => handleRemoveFromWishlist(item.id)}
+                      >
+                        X
+                      </div>
+                      <img
+                        src={item.image}
+                        className="img-fluid"
+                        alt={item.name}
+                        width={100}
+                        height={100}
+                      />
+                    </div>
+                    <div className="py-3 px-3">
+                      <Link to={`/product/${item.id}`}>
+                        <h5 className="title">{item.name}</h5>
+                      </Link>
+                      <h6 className="price">${item.price}</h6>
+                    </div>
+                  </div>
+                </>
+              ))}
             </div>
-          </div>
-          <div className="col-3">
-            <div className="wishlist-card position-relative">
-              <img
-                src="images/cross.svg"
-                alt="cross"
-                className="position-absolute cross img-fluid"
-              />
-              <div className="wishlist-card-image">
-                <img
-                  src="images/watch.jpg"
-                  className="img-fluid w-100"
-                  alt="watch"
-                />
-              </div>
-              <div className="py-3 px-3">
-                <h5 className="title">
-                  Honor T1 7.0 1 GB RAM 8 GB ROM 7 Inch With Wi-Fi+3G Tablet
-                </h5>
-                <h6 className="price">$ 100</h6>
-              </div>
-            </div>
-          </div>
-          <div className="col-3">
-            <div className="wishlist-card position-relative">
-              <img
-                src="images/cross.svg"
-                alt="cross"
-                className="position-absolute cross img-fluid"
-              />
-              <div className="wishlist-card-image">
-                <img
-                  src="images/watch.jpg"
-                  className="img-fluid w-100"
-                  alt="watch"
-                />
-              </div>
-              <div className="py-3 px-3">
-                <h5 className="title">
-                  Honor T1 7.0 1 GB RAM 8 GB ROM 7 Inch With Wi-Fi+3G Tablet
-                </h5>
-                <h6 className="price">$ 100</h6>
-              </div>
-            </div>
-          </div>
-        </div>
+          </>
+        )}
       </Container>
     </>
   );

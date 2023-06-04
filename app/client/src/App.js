@@ -18,6 +18,7 @@ import TermAndContions from "./pages/TermAndContions";
 import SingleProduct from "./pages/SingleProduct";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
+import EditProfile from "./pages/EditProfile";
 
 function App() {
   const ROLES = {
@@ -39,6 +40,7 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="forgot-password" element={<Forgotpassword />} />
           <Route path="signup" element={<Signup />} />
+          <Route path="account" element={<EditProfile />} />
           <Route path="reset-password" element={<Resetpassword />} />
           <Route path="term-conditions" element={<TermAndContions />} />
           <Route path="/*" element={<Unauthorized />} />
