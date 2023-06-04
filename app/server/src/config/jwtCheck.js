@@ -13,7 +13,7 @@ function verifyToken(req, res, next) {
       return res.sendStatus(403);
     }
     req.user = decoded.id; // Access the 'id' property from the decoded token and assign it to the 'user' property of the request object
-    next();
+    next();  
   });
 }
 
