@@ -27,7 +27,7 @@ const SingleProduct = () => {
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [reviews, setReviews] = useState([]);
   const [reviewCount, setReviewCount] = useState(0);
-  const [rating, setRating] = useState(0);
+  const [rating, setRating] = useState("");
   const [reviewsLoaded, setReviewsLoaded] = useState(false);
   const [reviewText, setReviewText] = useState("");
   const [reviewRating, setReviewRating] = useState(0);
@@ -88,9 +88,11 @@ const SingleProduct = () => {
       return acc + review.rating;
     }, 0);
     setReviewCount(counter);
-    setRating(ratingTotal / counter);
-    console.log(ratingTotal / counter);
-    setReviewsLoaded(true);
+    const result = ratingTotal / counter;
+    setRating(result);
+    if (result > 0) {
+      setReviewsLoaded(true);
+    }
     return () => {
       cleanUP = true;
     };
@@ -158,13 +160,15 @@ const SingleProduct = () => {
                   <div className="border-bottom py-3">
                     <p className="price">${product?.price}</p>
                     <div className="d-flex align-items-center gap-10">
-                      <ReactStars
-                        count={5}
-                        size={24}
-                        value={rating}
-                        edit={false}
-                        activeColor="#ffd700"
-                      />
+                      {reviewsLoaded ? (
+                        <ReactStars
+                          count={5}
+                          size={24}
+                          value={rating}
+                          edit={false}
+                          activeColor="#ffd700"
+                        />
+                      ) : null}
                       <p className="mb-0 t-review">( {reviewCount} Reviews )</p>
                     </div>
                     <a className="review-btn" href="#review">
@@ -172,10 +176,6 @@ const SingleProduct = () => {
                     </a>
                   </div>
                   <div className=" py-3">
-                    <div className="d-flex gap-10 align-items-center my-2">
-                      <h3 className="product-heading">Category :</h3>
-                      <p className="product-data">{product?.category}</p>
-                    </div>
                     <div className="d-flex gap-10 align-items-center my-2">
                       <h3 className="product-heading">Availablity :</h3>
                       <p className="product-data">
@@ -283,11 +283,11 @@ const SingleProduct = () => {
                     <div>
                       <h4 className="mb-2">Customer Reviews</h4>
                       <div className="d-flex align-items-center gap-10">
-                        {reviewsLoaded == true ? (
+                        {reviewsLoaded ? (
                           <ReactStars
                             count={5}
                             size={24}
-                            value={3.5}
+                            value={rating}
                             edit={false}
                             activeColor="#ffd700"
                           />

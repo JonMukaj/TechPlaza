@@ -12,9 +12,8 @@ const ProductCard = ({ product }) => {
           className="product-card position-relative"
         >
           <div className="product-image">
-            {console.log(product?.image)}
             <img
-              src={product?.image}
+              src={`/${product?.image}`}
               className="img-fluid h-100 w-100"
               alt="product image"
             />

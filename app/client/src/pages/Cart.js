@@ -2,15 +2,13 @@ import React, { useContext, useState, useEffect } from "react";
 import BreadCrumb from "../Components/BreadCrumb";
 import { Link } from "react-router-dom";
 import Container from "../Components/Container";
-import CartItem from "./CartItem";
 import CartContext from "../context/CartProvider";
 import axios from "axios";
 
 const Cart = () => {
-  const { getCart, removeFromCart } = useContext(CartContext);
+  const { addToCart, getCart, removeFromCart } = useContext(CartContext);
   const [serverProducts, setServerProducts] = useState([]);
   const [cartItemsWithDetails, setCartItemsWithDetails] = useState([]);
-  let itemList = [];
   useEffect(() => {
     // Extract product IDs
     const cartItems = getCart();
@@ -37,39 +35,66 @@ const Cart = () => {
       );
 
       if (cartProduct) {
-        if (serverProduct.quantity < cartProduct.quantity) {
+        if (serverProduct.stock < cartProduct.quantity) {
           removeFromCart(
             cartProduct.productId,
-            cartProduct.quantity - serverProduct.quantity
+            cartProduct.quantity - serverProduct.stock
           );
-          serverProduct.quantity = serverProduct.quantity; // Update quantity to match server
-        } else if (serverProduct.quantity === 0) {
+        } else if (serverProduct.stock <= 0) {
           removeFromCart(cartProduct.productId, cartProduct.quantity);
         }
 
-        updatedCartItemsWithDetails.push({ ...cartProduct, ...serverProduct });
+        updatedCartItemsWithDetails.push({
+          quantity: cartProduct.quantity,
+          maxQuantity: serverProduct.stock,
+          ...serverProduct,
+        });
       }
     });
 
-    itemList = getCart();
     setCartItemsWithDetails(updatedCartItemsWithDetails);
   }, [serverProducts]);
 
-  const handleIncrease = (productId) => {
-    addToCart(productId, 1);
-  };
-
-  const handleDecrease = (productId) => {
-    removeFromCart(productId, 1);
+  const handleQuantityChange = (productId, newQuantity) => {
+    newQuantity = parseInt(newQuantity);
+    console.log(productId, newQuantity);
+    const productInCart = getCart().find(
+      (item) => item.productId === productId
+    );
+    console.log(productInCart);
+    if (productInCart) {
+      if (newQuantity > productInCart.maxQuantity) {
+        // Don't allow quantity to be set higher than available
+        newQuantity = productInCart.maxQuantity;
+      }
+      removeFromCart(productId, productInCart.quantity);
+      addToCart(productId, newQuantity);
+    }
+    // Update the quantity in the cartItemsWithDetails state
+    setCartItemsWithDetails((prevCartItemsWithDetails) =>
+      prevCartItemsWithDetails.map((item) => {
+        if (item.id === productId) {
+          return { ...item, quantity: newQuantity };
+        }
+        return item;
+      })
+    );
+    console.log("b");
   };
 
   const handleRemove = (productId) => {
-    // Removing all quantities of the product
-    const product = getCart().find((item) => item.productId === productId);
-    if (product) {
-      removeFromCart(productId, product.quantity);
+    const productInCart = getCart().find(
+      (item) => item.productId === productId
+    );
+    if (productInCart) {
+      removeFromCart(productId, productInCart.quantity);
     }
+    // Remove the product from the cartItemsWithDetails state
+    setCartItemsWithDetails((prevCartItemsWithDetails) =>
+      prevCartItemsWithDetails.filter((item) => item.id !== productId)
+    );
   };
+
   return (
     <>
       <BreadCrumb title="Cart" />
@@ -98,11 +123,6 @@ const Cart = () => {
                       </div>
                       <div className="w-75">
                         <p>{cartItem.name}</p>
-                        <p>
-                          <Link to={"/categories/" + cartItem.categoryID}>
-                            Browse category
-                          </Link>
-                        </p>
                       </div>
                     </div>
                     <div className="cart-col-2">
@@ -115,14 +135,23 @@ const Cart = () => {
                           type="number"
                           name=""
                           min={1}
-                          max={10}
+                          max={cartItem.maxQuantity}
                           id=""
+                          value={cartItem.quantity}
+                          onChange={(e) =>
+                            handleQuantityChange(cartItem.id, e.target.value)
+                          }
                         />
                       </div>
                     </div>
                     <div className="cart-col-4">
-                      <h5 className="price">$</h5>
+                      <h5 className="price">
+                        ${cartItem.quantity * cartItem.price}
+                      </h5>
                     </div>
+                    <button onClick={() => handleRemove(cartItem.id)}>
+                      Remove
+                    </button>
                   </div>
                 </>
               ))
@@ -130,15 +159,21 @@ const Cart = () => {
           </div>
           <div className="col-12 py-2 mt-4">
             <div className="d-flex justify-content-between align-items-baseline">
-              <Link to="/product" className="button">
+              <Link to="/" className="button">
                 Continue To Shopping
               </Link>
               <div className="d-flex flex-column align-items-end">
-                <h4>SubTotal: $ 1000</h4>
-                <p>Taxes and shipping calculated at checkout</p>
-                <Link to="/checkout" className="button">
-                  Checkout
-                </Link>
+                <h4>
+                  Subtotal: $
+                  {cartItemsWithDetails.reduce((sum, item) => {
+                    return sum + item.price * item.quantity;
+                  }, 0)}
+                </h4>
+                {cartItemsWithDetails.length > 0 ? (
+                  <Link to="/checkout" className="button">
+                    Checkout
+                  </Link>
+                ) : null}
               </div>
             </div>
           </div>

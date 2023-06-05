@@ -11,7 +11,6 @@ const Wishlist = () => {
   const [isWishlistLoading, setIsWishlistLoading] = useState(false);
 
   const handleRemoveFromWishlist = (productId) => {
-    console.log("remove");
     removeFromWishlist(productId);
     let response = getWishlistItems();
     setWishlistItems(response);

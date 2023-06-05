@@ -22,7 +22,7 @@ const Home = () => {
     try {
       !cleanUP && (async () => await getItems())();
     } catch (error) {
-      console.log("a");
+      console.log("An error occurred while fetching products");
     }
     setIsProductsLoading(false);
     return () => {

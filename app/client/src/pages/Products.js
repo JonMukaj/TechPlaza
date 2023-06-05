@@ -88,7 +88,6 @@ const Products = () => {
     }
 
     productsArray = sortArray(sortType, productsArray);
-
     setSortedProducts(productsArray);
   }, [products, sortType, minPrice, maxPrice, inStockOnly]);
 

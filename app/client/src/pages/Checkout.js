@@ -1,9 +1,68 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { BiArrowBack } from "react-icons/bi";
 import Container from "../Components/Container";
-
+import axios from "axios";
+import CartContext from "../context/CartProvider";
 const Checkout = () => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [zipcode, setZipcode] = useState("");
+  const [error, setError] = useState("");
+  const { getCart, removeAll } = useContext(CartContext);
+  const navigate = useNavigate();
+
+  const handlePurchase = async (e) => {
+    e.preventDefault();
+    //check if all fields are filled
+    if (
+      !firstName ||
+      !lastName ||
+      !email ||
+      !phoneNumber ||
+      !address ||
+      !city ||
+      !zipcode
+    ) {
+      alert("Please fill all fields");
+    } else {
+      const data = {
+        firstName,
+        lastName,
+        email,
+        phoneNumber,
+        address,
+        city,
+        zipcode,
+      };
+      const cartItems = getCart();
+      const updatedCart = cartItems.map((item) => ({
+        id: item.productId,
+        quantity: item.quantity,
+      }));
+      data.order = updatedCart;
+      const accessToken = JSON.parse(localStorage.getItem("user")).accessToken;
+      console.log(data);
+      console.log(accessToken);
+      if (cartItems.length > 0) {
+        try {
+          await axios.post("/orders/shipping", data, {
+            headers: { Authorization: `Token ${accessToken}` },
+          });
+          removeAll();
+          navigate("/");
+        } catch (error) {
+          console.err(error);
+          setError(true);
+        }
+      }
+    }
+  };
+
   return (
     <>
       <Container class1="checkout-wrapper py-5 home-wrapper-2">
@@ -21,47 +80,20 @@ const Checkout = () => {
                       Cart
                     </Link>
                   </li>
-                  &nbsp; /&nbsp;
-                  <li
-                    className="breadcrumb-ite total-price active"
-                    aria-current="page"
-                  >
-                    Information
-                  </li>
-                  &nbsp; /
-                  <li className="breadcrumb-item total-price active">
-                    Shipping
-                  </li>
-                  &nbsp; /
-                  <li
-                    className="breadcrumb-item total-price active"
-                    aria-current="page"
-                  >
-                    Payment
-                  </li>
                 </ol>
               </nav>
-              <h4 className="title total">Contact Information</h4>
-              <p className="user-details total">
-                Navdeep Dahiya (monud0232@gmail.com)
-              </p>
               <h4 className="mb-3">Shipping Address</h4>
               <form
                 action=""
                 className="d-flex gap-15 flex-wrap justify-content-between"
               >
-                <div className="w-100">
-                  <select name="" className="form-control form-select" id="">
-                    <option value="" selected disabled>
-                      Select Country
-                    </option>
-                  </select>
-                </div>
                 <div className="flex-grow-1">
                   <input
                     type="text"
                     placeholder="First Name"
                     className="form-control"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
                   />
                 </div>
                 <div className="flex-grow-1">
@@ -69,20 +101,35 @@ const Checkout = () => {
                     type="text"
                     placeholder="Last Name"
                     className="form-control"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
                   />
                 </div>
                 <div className="w-100">
+                  <input
+                    type="email"
+                    placeholder="Email Address"
+                    className="form-control"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+                <div className="w-100">
+                  <input
+                    type="phone"
+                    placeholder="Phone Number"
+                    className="form-control"
+                    value={phoneNumber}
+                    onChange={(e) => setPhoneNumber(e.target.value)}
+                  />
+                </div>
+                <div className="flex-grow-1">
                   <input
                     type="text"
                     placeholder="Address"
                     className="form-control"
-                  />
-                </div>
-                <div className="w-100">
-                  <input
-                    type="text"
-                    placeholder="Apartment, Suite ,etc"
-                    className="form-control"
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
                   />
                 </div>
                 <div className="flex-grow-1">
@@ -90,20 +137,17 @@ const Checkout = () => {
                     type="text"
                     placeholder="City"
                     className="form-control"
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
                   />
-                </div>
-                <div className="flex-grow-1">
-                  <select name="" className="form-control form-select" id="">
-                    <option value="" selected disabled>
-                      Select State
-                    </option>
-                  </select>
                 </div>
                 <div className="flex-grow-1">
                   <input
                     type="text"
                     placeholder="Zipcode"
                     className="form-control"
+                    value={zipcode}
+                    onChange={(e) => setZipcode(e.target.value)}
                   />
                 </div>
                 <div className="w-100">
@@ -112,54 +156,16 @@ const Checkout = () => {
                       <BiArrowBack className="me-2" />
                       Return to Cart
                     </Link>
-                    <Link to="/cart" className="button">
-                      Continue to Shipping
-                    </Link>
+                    <button
+                      type="button"
+                      onClick={async (e) => await handlePurchase(e)}
+                      className="button"
+                    >
+                      Purchase Products
+                    </button>
                   </div>
                 </div>
               </form>
-            </div>
-          </div>
-          <div className="col-5">
-            <div className="border-bottom py-4">
-              <div className="d-flex gap-10 mb-2 align-align-items-center">
-                <div className="w-75 d-flex gap-10">
-                  <div className="w-25 position-relative">
-                    <span
-                      style={{ top: "-10px", right: "2px" }}
-                      className="badge bg-secondary text-white rounded-circle p-2 position-absolute"
-                    >
-                      1
-                    </span>
-                    <img
-                      className="img-fluid"
-                      src="images/laptop-static.png"
-                      alt="product"
-                    />
-                  </div>
-                  <div>
-                    <h5 className="total-price">gfdhgf</h5>
-                    <p className="total-price">s / #agfgfd</p>
-                  </div>
-                </div>
-                <div className="flex-grow-1">
-                  <h5 className="total">$ 100</h5>
-                </div>
-              </div>
-            </div>
-            <div className="border-bottom py-4">
-              <div className="d-flex justify-content-between align-items-center">
-                <p className="total">Subtotal</p>
-                <p className="total-price">$ 10000</p>
-              </div>
-              <div className="d-flex justify-content-between align-items-center">
-                <p className="mb-0 total">Shipping</p>
-                <p className="mb-0 total-price">$ 10000</p>
-              </div>
-            </div>
-            <div className="d-flex justify-content-between align-items-center border-bootom py-4">
-              <h4 className="total">Total</h4>
-              <h5 className="total-price">$ 10000</h5>
             </div>
           </div>
         </div>

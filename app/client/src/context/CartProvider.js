@@ -30,6 +30,11 @@ export const CartProvider = ({ children }) => {
     });
   };
 
+  const removeAll = () => {
+    setCart([]);
+    localStorage.removeItem("cart");
+  };
+
   const removeFromCart = (productId, quantity = 1) => {
     setCart((prevCart) => {
       const existingProduct = prevCart.find(
@@ -54,7 +59,9 @@ export const CartProvider = ({ children }) => {
     return [...cart];
   };
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart, getCart }}>
+    <CartContext.Provider
+      value={{ cart, removeAll, addToCart, removeFromCart, getCart }}
+    >
       {children}
     </CartContext.Provider>
   );
