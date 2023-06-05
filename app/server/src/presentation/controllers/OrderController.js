@@ -47,25 +47,9 @@ class OrderController {
 
 
   createOrderWithShipping = asyncHandler(async (req, res) => {
-    const { order, firstName, lastName, email, phoneNumber, address, city, zipcode } = req.body;
-
-    // Create the order
-    const createdOrder = await this.serviceManager.orderService.createOrderAsync(order);
-
-    // Create the shipping address
-    const createdShippingAddress = await this.serviceManager.shippingAddressService.createShippingAddressAsync({
-      orderId: createdOrder.id,
-      firstName,
-      lastName,
-      email,
-      phoneNumber,
-      address,
-      city,
-      zipcode
-    });
-
-    // Return the created order as the response
-    res.json(createdOrder);
+    const loggedUserId=req.user;
+   const result=await this.serviceManager.orderService.createOrderWithShippingAsync(req.body,loggedUserId);
+return res.json(result);
   });
 }
 

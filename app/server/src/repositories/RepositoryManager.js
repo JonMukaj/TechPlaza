@@ -4,6 +4,7 @@ const CategoriesRepository=require("../repositories/CategoriesRepository");
 const OrderRepository = require('./OrdersRepository');
 const ReviewReposiory=require("./ReviewRepository");
 const ShippingAddressRepository = require('./ShippingAddressRepository');
+const CustomQueryRepository = require('./CustomQueryRepository');
 
 class RepositoryManager {
   constructor() {
@@ -14,6 +15,7 @@ class RepositoryManager {
       this.orderRepository=new OrderRepository();
       this.reviewRepository=new ReviewReposiory();
       this.shippingAddressRepository=new ShippingAddressRepository();
+      this.customQueryRepositoy=new CustomQueryRepository();
     })()
   }
 
@@ -39,6 +41,10 @@ class RepositoryManager {
   }
   shippingAddressRepository(){
     return this.shippingAddressRepository;
+  }
+
+  customQueryRepositoy(){
+    return this.customQueryRepositoy;
   }
 
 }

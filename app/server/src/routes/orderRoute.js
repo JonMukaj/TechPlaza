@@ -10,5 +10,6 @@ router.put('/:id', orderController.updateOrder.bind(orderController));
 router.delete('/:id', orderController.deleteOrder.bind(orderController));
 router.get('/', orderController.getOrders.bind(orderController));
 router.get('/:userId/orders', orderController.getOrdersByUserId.bind(orderController));
+router.post('/shipping',orderController.createOrderWithShipping.bind(orderController));
 
 module.exports = router;
