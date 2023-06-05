@@ -19,11 +19,10 @@ const CartItem = ({ cartItem }) => {
             />
           </div>
           <div className="w-75">
-            <p>{cartItem.title}</p>
+            <p>{cartItem.name}</p>
             <p>
-              Category: &nbsp;
               <Link to={"/category/" + cartItem.categoryID}>
-                {cartItem.category}
+                Browse category
               </Link>
             </p>
           </div>

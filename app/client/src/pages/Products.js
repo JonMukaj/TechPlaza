@@ -3,7 +3,7 @@ import BreadCrumb from "../Components/BreadCrumb";
 import ReactStars from "react-rating-stars-component";
 import ProductCard from "../Components/productCard/ProductCard";
 import Container from "../Components/Container";
-import { makeAuthenticatedRequest } from "../services/product.service";
+import { makeRequest } from "../services/product.service";
 import { useParams } from "react-router-dom";
 
 const Products = () => {
@@ -17,7 +17,7 @@ const Products = () => {
   const [isProductsLoading, setIsProductsLoading] = useState(false);
 
   const getCategoryItems = async (categoryId) => {
-    const items = await makeAuthenticatedRequest(
+    const items = await makeRequest(
       `/categories/${categoryId}/products`,
       "GET"
     );
@@ -74,7 +74,7 @@ const Products = () => {
     };
 
     const filterInStock = (productsArray) => {
-      return productsArray.filter((product) => product.inStock);
+      return productsArray.filter((product) => product.stock);
     };
 
     let productsArray = [...products];
