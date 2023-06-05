@@ -15,8 +15,6 @@ const Login = () => {
   const auth = useAuth();
   const navigate = useNavigate();
 
-  console.log(auth);
-
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);

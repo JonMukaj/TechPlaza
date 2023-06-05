@@ -4,7 +4,7 @@ import Marquee from "react-fast-marquee";
 import ProductCard from "../Components/productCard/ProductCard";
 import Container from "../Components/Container";
 import StaticCategories from "./StaticCategories";
-import { makeAuthenticatedRequest } from "../services/product.service";
+import { makeRequest } from "../services/product.service";
 import Box from "@mui/material/Box";
 import Skeleton from "@mui/material/Skeleton";
 
@@ -12,7 +12,7 @@ const Home = () => {
   const [isProductsLoading, setIsProductsLoading] = useState(false);
   const [products, setProducts] = useState([]);
   const getItems = async () => {
-    const items = await makeAuthenticatedRequest("/products", "GET");
+    const items = await makeRequest("/products", "GET");
     setProducts(items);
   };
 
