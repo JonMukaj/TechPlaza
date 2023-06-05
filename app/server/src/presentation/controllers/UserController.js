@@ -36,8 +36,6 @@ class UserController {
   updateUser = asyncHandler(async (req, res) => {
     const {error , value}=validator.userUpdate.validate(req.body);
     if(error) throw new BadRequest(error.message);
-
-    console.log(value);
     const user = await this.serviceManager.userService.updateUserAsync(req.params.id, value);
     res.json(user);
   });

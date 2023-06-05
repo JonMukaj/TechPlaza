@@ -65,23 +65,40 @@ class OrderService {
   }
 
 
-  async createOrderWithShipping(request)
-  {
-    let total=0;
-    request.order.forEach( async prod => {
+  async createOrderWithShippingAsync(request,loggedUserId) {
+    let total = 0;
+    
+    const shipping = {
+      firstName: request.firstName,
+      lastName: request.lastName,
+      email: request.email,
+      phoneNumber: request.phoneNumber,
+      address: request.address,
+      city: request.city,
+      zipcode: request.zipcode,
+      userId: loggedUserId
+    };
+  
+    for (const prod of request.order) {
       const existingProduct = await this.repositoryManager.productRepository.GetProductById(prod.id);
-      if (!product) {
-        throw new NotFound(`Product with ID ${productId} not found`);
+      if (!existingProduct) {
+        throw new NotFound(`Product with ID ${prod.id} not found`);
       }
-
-      total+=existingProduct.stock*prod.quantity;
       
+      total += existingProduct.price * prod.quantity;
+    }
+    
+    const order={
+      total:total,
+      userId:loggedUserId
+    };
+  
+    await this.repositoryManager.shippingAddressRepository.createShippingAddress(shipping);
+    await this.repositoryManager.orderRepository.CreateOrder(order);
 
-
-
-    });
-
+    return total;
   }
+  
 }
 
 module.exports = OrderService;
