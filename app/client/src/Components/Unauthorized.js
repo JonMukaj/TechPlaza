@@ -5,10 +5,8 @@ const Unauthorized = () => {
   const location = useLocation();
   return (
     <div>
-      <Typography variant="h1">Unauthorized</Typography>
-      <Typography variant="h2">
-        You are not authorized to access {location?.state?.from?.pathname}
-      </Typography>
+      <Typography variant="h1">Error 404</Typography>
+      <Typography variant="h2">Page not found</Typography>
     </div>
   );
 };

@@ -50,7 +50,7 @@ const Header = () => {
                 </Link>
               </h2>
             </div>
-            <div className="col-5">
+            {/* <div className="col-5">
               <div className="input-group">
                 <input
                   type="text"
@@ -63,7 +63,8 @@ const Header = () => {
                   <BsSearch className="fs-6" />
                 </span>
               </div>
-            </div>
+            </div> */}
+            <div className="col-5"></div>
             <div className="col-5">
               <div className="header-upper-links d-flex align-items-center justify-content-between">
                 <div>
@@ -101,9 +102,7 @@ const Header = () => {
                     className="d-flex align-items-center gap-10 text-white"
                   >
                     <ShoppingCartIcon />
-                    <div className="d-flex flex-column gap-10">
-                      <span className="badge bg-white text-dark">0</span>
-                    </div>
+                    <div className="d-flex flex-column gap-10"></div>
                   </Link>
                 </div>
               </div>
@@ -155,10 +154,6 @@ const Header = () => {
                   <div className="d-flex align-items-center gap-15">
                     <NavLink to="/">
                       <Button variant="outlined">Home</Button>
-                    </NavLink>
-                    <NavLink to="/products">
-                      {" "}
-                      <Button variant="outlined">All Products</Button>
                     </NavLink>
                     <NavLink to="/contact">
                       {" "}

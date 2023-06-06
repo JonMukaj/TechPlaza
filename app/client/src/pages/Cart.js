@@ -4,11 +4,13 @@ import { Link } from "react-router-dom";
 import Container from "../Components/Container";
 import CartContext from "../context/CartProvider";
 import axios from "axios";
+import useAuth from "../hooks/useAuth";
 
 const Cart = () => {
   const { addToCart, getCart, removeFromCart } = useContext(CartContext);
   const [serverProducts, setServerProducts] = useState([]);
   const [cartItemsWithDetails, setCartItemsWithDetails] = useState([]);
+  const { user } = useAuth();
   useEffect(() => {
     // Extract product IDs
     const cartItems = getCart();
@@ -169,11 +171,15 @@ const Cart = () => {
                     return sum + item.price * item.quantity;
                   }, 0)}
                 </h4>
-                {cartItemsWithDetails.length > 0 ? (
+                {cartItemsWithDetails.length <= 0 ? null : user ? (
                   <Link to="/checkout" className="button">
                     Checkout
                   </Link>
-                ) : null}
+                ) : (
+                  <Link to="/login" className="button">
+                    Login to proceed
+                  </Link>
+                )}
               </div>
             </div>
           </div>
