@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Marquee from "react-fast-marquee";
+// import Marquee from "react-fast-marquee";
 import ProductCard from "../Components/productCard/ProductCard";
 import Container from "../Components/Container";
 import StaticCategories from "./StaticCategories";
@@ -37,7 +37,7 @@ const Home = () => {
           <div className="col-12">
             <div className="main-banner position-relative ">
               <img
-                src="images/banner-img.webp"
+                src="/images/banner-img.webp"
                 alt="main banner"
                 className="img-fluid"
               />
@@ -80,7 +80,7 @@ const Home = () => {
         </div>
       </Container>
 
-      <Container class1="marque-wrapper home-wrapper-2 py-5">
+      {/* <Container class1="marque-wrapper home-wrapper-2 py-5">
         <div className="row">
           <div className="col-12">
             <div className="marquee-inner-wrapper card-wrapper">
@@ -113,7 +113,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-      </Container>
+      </Container> */}
     </>
   );
 };

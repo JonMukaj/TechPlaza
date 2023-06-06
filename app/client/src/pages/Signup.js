@@ -79,6 +79,9 @@ const Signup = () => {
                     <button className="button border-0" onClick={handleSubmit}>
                       Sign Up
                     </button>
+                    <Link to="/login" className="button signup">
+                      Login
+                    </Link>
                     <div>
                       {loading ? (
                         <div>
