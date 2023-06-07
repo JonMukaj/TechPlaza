@@ -34,12 +34,6 @@ app.use(express.static(path.resolve(__dirname, '../client/build')));
 app.use(express.static(path.resolve(__dirname, '../server/src/images')));   //http://localhost:5000/im.png
  
 
-
-// Landing page of React
-app.get('/', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
-});
-
 app.get("/backend", (req, res) => {
   res.send({ express: "TOP G!i" });
 });
@@ -50,19 +44,15 @@ app.use("/reviews",reviewRoute);
 app.use('/users', jwtCheck,userRoutes);
 app.use('/categories',categoriesRoutes);
 app.use("/shipping",shippingRoute);
-
-
-//TEST FOR JWT
 app.use("/products", productsRoutes);
 
 app.use(errorHandler);
 
-// //  Create a login route
-// app.post("/login", (req, res) => {
-//   console.log(req.body);
-//   const { email, password } = req.body;
-//   res.send({ email, password });
-// });
+
+// Landing page of React
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
+});
 
 // This displays message that the server running and listening to specified port
 app.listen(port, () => console.log(`Listening on port ${port}`));

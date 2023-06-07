@@ -8,7 +8,7 @@ Set up environment
 
 To set up the environment, follow these steps:
 
-1.  Create a `.env` file inside the `/app` directory which will include the configuration variables.
+1.  Create a `.env` file inside the `/app/server` directory which will include the configuration variables.
 2. Navigate to /client directory and run `npm install & npm run watch`
 3.  Navigate to the `/app` directory and run the following command: `docker-compose up -d`.
 
