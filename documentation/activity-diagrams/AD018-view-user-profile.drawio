@@ -1,0 +1,39 @@
+<mxfile host="app.diagrams.net" modified="2023-05-31T13:27:43.069Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36" etag="shex6pqGrV6qRBk12xFg" version="21.3.6" type="google">
+  <diagram name="Page-1" id="hfqP-CIko1pe7L0jNojt">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="5tNWghgL8CO-7UuSRx4R-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="5tNWghgL8CO-7UuSRx4R-1" target="5tNWghgL8CO-7UuSRx4R-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="5tNWghgL8CO-7UuSRx4R-1" value="user logs in (AD001) customer/vendor" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="80" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="5tNWghgL8CO-7UuSRx4R-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="5tNWghgL8CO-7UuSRx4R-2" target="5tNWghgL8CO-7UuSRx4R-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="5tNWghgL8CO-7UuSRx4R-2" value="navigate to my Profile section&amp;nbsp;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="160" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="5tNWghgL8CO-7UuSRx4R-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="5tNWghgL8CO-7UuSRx4R-3" target="5tNWghgL8CO-7UuSRx4R-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="5tNWghgL8CO-7UuSRx4R-3" value="view details&amp;nbsp;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="230" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="5tNWghgL8CO-7UuSRx4R-7" value="" style="ellipse;html=1;shape=startState;fillColor=#000000;strokeColor=#ff0000;" vertex="1" parent="1">
+          <mxGeometry x="80" y="10" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="5tNWghgL8CO-7UuSRx4R-8" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;verticalAlign=bottom;endArrow=open;endSize=8;strokeColor=#ff0000;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="5tNWghgL8CO-7UuSRx4R-7" target="5tNWghgL8CO-7UuSRx4R-1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="95" y="60" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5tNWghgL8CO-7UuSRx4R-10" value="" style="ellipse;html=1;shape=endState;fillColor=#000000;strokeColor=#ff0000;" vertex="1" parent="1">
+          <mxGeometry x="80" y="310" width="30" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

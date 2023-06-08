@@ -4,14 +4,7 @@ on:
   push:
     tags: ["v*.*.*"]
     
-# permissions:
-#       id-token: write
-#       contents: read
-  
 env:
-  # RG_TEST: techplaza-test-rg
-  # RG_PROD: techplaza-prod-rg
-  # APP_NAME_TEST: techplaza-test
   IMAGE_NAME_PROD: techplaza-prod
 
 

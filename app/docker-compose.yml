@@ -4,9 +4,7 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile.dev
-    working_dir: /root/server
     container_name: techplaza
-    # network_mode: "host"
     ports:
       - 5000:5000
     environment:
@@ -20,55 +18,3 @@ services:
       - "./server:/root/server:rw"
       - "./client/build:/root/client/build:ro"
     command: "npm run start:dev"
-  # postgres:
-  #   image: postgres:14.7-alpine
-  #   container_name: postgres-db
-  #   ports:
-  #     - 5432:5432
-  #   environment:
-  #     - POSTGRES_USER=${POSTGRES_USER}
-  #     - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-  #     - POSTGRES_DB=${POSTGRES_DB}
-  #     - POSTGRES_HOST=${POSTGRES_HOST}
-  #   # volumes:
-  #   #     - /data/volumes/myproject/my_db:/var/lib/postgresql/data/
-  #   deploy:
-  #     restart_policy:
-  #       condition: on-failure
-  #       max_attempts: 3
-      
-  # react:
-  #   build: 
-  #     context: ./client
-  #     dockerfile: Dockerfile.dev
-  #   container_name: frontend
-  #   volumes:
-  #     - ./client:/client
-  #     - /client/node_modules
-  #   ports:
-  #     - 3000:3000
-  #   environment:
-  #     - NODE_ENV=development
-  #   deploy:
-  #     restart_policy:
-  #       condition: on-failure
-  #       max_attempts: 3
-
-  # express:
-  #   build:
-  #       context: ./server
-  #       dockerfile: Dockerfile.dev
-  #   container_name: backend
-  #   volumes:
-  #     - ./server:/server
-  #     - /server/node_modules
-  #   ports:
-  #     - 5000:5000
-  #   environment:
-  #     - NODE_ENV=development
-  #   # depends_on:
-  #   #   - postgres
-  #   deploy:
-  #     restart_policy:
-  #       condition: on-failure
-  #       max_attempts: 3

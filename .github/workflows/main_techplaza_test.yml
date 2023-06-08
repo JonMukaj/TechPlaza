@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - 'main'
-#     tags: ["v*.*.*"]
     
 permissions:
       id-token: write
@@ -24,9 +23,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-#       - name: Get tag
-#         id: tag
-#         uses: dawidd6/action-get-tag@v1
       - name: Get short commit hash
         id: vars
         run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT

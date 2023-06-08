@@ -22,15 +22,13 @@ const testJwt=require("./src/config/jwt");
 const whitelist = ["http://localhost:3000"];
 app.use(express.json());
 app.use(cors(whitelist));
-// Middleware
-//app.use(express.urlencoded({ extended: true }));
+
 app.use(morgan('dev'));
 app.use(helmet());
 app.use(cors());
 
 
 app.use(express.static(path.resolve(__dirname, '../client/build')));
-//app.use("/static", express.static(path.resolve(__dirname, '../server/src/images')));  //http://localhost:5000/static/im.png
 app.use(express.static(path.resolve(__dirname, '../server/src/images')));   //http://localhost:5000/im.png
  
 
@@ -48,8 +46,6 @@ app.use("/products", productsRoutes);
 
 app.use(errorHandler);
 
-
-// Landing page of React
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
 });
