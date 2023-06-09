@@ -37,7 +37,7 @@ const Home = () => {
           <div className="col-12">
             <div className="main-banner position-relative ">
               <img
-                src="/images/banner-img.webp"
+                src="images/Banner-img.webp"
                 alt="main banner"
                 className="img-fluid"
               />
