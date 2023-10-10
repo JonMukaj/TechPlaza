@@ -47,7 +47,7 @@ app.use("/products", productsRoutes);
 app.use(errorHandler);
 
 app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
+  res.sendFile(path.resolve(__dirname, '../client/public', 'index.html'));
 });
 
 // This displays message that the server running and listening to specified port

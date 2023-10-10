@@ -9,7 +9,7 @@ Set up development environment
 To set up the environment, follow these steps:
 
 1.  Rename `.template-env` to `.env` inside the `/app/server` directory and populate it with  all the required configuration variables.
-2. Navigate to `/app/client` directory and run `npm install & npm run watch`
+2. Navigate to `/app/client` directory and run `npm install && npm run watch`
 3.  Navigate to the `/app` directory and run the following command: `docker-compose up -d`.
 
 Install dependencies
